@@ -4,7 +4,9 @@
 **Project codename:** AgentScribe
 
 
-> Companion documents: [`PLAN.md`](PLAN.md) (architecture) · [`TODO.md`](TODO.md) (tasks) · [`PRD_crew_pipeline.md`](PRD_crew_pipeline.md) (multi-agent mechanism) · [`PRD_latex_compiler.md`](PRD_latex_compiler.md) (LaTeX/PDF mechanism).
+> Companion documents: [`PLAN.md`](PLAN.md) (architecture) · [`TODO.md`](TODO.md) (tasks) · [`AI_STACK.md`](AI_STACK.md) (AI library choices & rationale).
+>
+> Mechanism PRDs (one per system): [`PRD_crew_pipeline.md`](PRD_crew_pipeline.md) (multi-agent pipeline) · [`PRD_latex_compiler.md`](PRD_latex_compiler.md) (LaTeX engine & multi-pass compile) · [`PRD_api_gatekeeper.md`](PRD_api_gatekeeper.md) (rate limiting, queue, retries, token accounting) · [`PRD_envelope_validator.md`](PRD_envelope_validator.md) (C1–C11 checks & self-correction) · [`PRD_sandbox_runner.md`](PRD_sandbox_runner.md) (sandboxed generated-code execution) · [`PRD_observability_cost.md`](PRD_observability_cost.md) (logging & cost reporting).
 
 ---
 
