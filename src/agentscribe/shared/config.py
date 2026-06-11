@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -72,11 +73,11 @@ class Config:
 
     @property
     def worker_model(self) -> str:
-        return str(self._setup["worker_model"])
+        return os.environ.get("AGENTSCRIBE_WORKER_MODEL") or str(self._setup["worker_model"])
 
     @property
     def engineer_model(self) -> str:
-        return str(self._setup["engineer_model"])
+        return os.environ.get("AGENTSCRIBE_ENGINEER_MODEL") or str(self._setup["engineer_model"])
 
     @property
     def human_in_the_loop(self) -> bool:
