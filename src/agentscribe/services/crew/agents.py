@@ -8,8 +8,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from crewai import LLM, Agent
+from crewai import Agent
 
+from agentscribe.services.crew.llm_compat import AnthropicSafeLLM
 from agentscribe.shared.config import Config
 
 AgentMap = dict[str, Agent]
@@ -19,8 +20,8 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
     """Create researcher, writer, editor and latex_engineer agents."""
     # LLM objects (not bare strings) so max_tokens also applies to CrewAI's
     # internal converter calls (structured output of a ~15-page draft).
-    worker = LLM(model=config.worker_model, max_tokens=config.worker_max_tokens)
-    engineer = LLM(model=config.engineer_model, max_tokens=config.engineer_max_tokens)
+    worker = AnthropicSafeLLM(model=config.worker_model, max_tokens=config.worker_max_tokens)
+    engineer = AnthropicSafeLLM(model=config.engineer_model, max_tokens=config.engineer_max_tokens)
     researcher = Agent(
         role="Research Analyst",
         goal="Find accurate, current facts and credible sources on {topic}.",

@@ -91,3 +91,19 @@ def test_search_tool_routes_through_gatekeeper() -> None:
     tool = build_search_tool(StubGatekeeper())  # type: ignore[arg-type]
     assert tool.run(query="agents in production") == "results"
     assert calls == [("search", ("agents in production",))]
+
+
+def test_trailing_assistant_turn_rerolled_for_anthropic() -> None:
+    from agentscribe.services.crew.llm_compat import ensure_user_turn_last
+
+    messages = [
+        {"role": "system", "content": "s"},
+        {"role": "user", "content": "u"},
+        {"role": "assistant", "content": "tool result"},
+    ]
+    fixed = ensure_user_turn_last(messages)
+    assert fixed[-1] == {"role": "user", "content": "tool result"}
+    assert fixed[:-1] == messages[:-1]
+    untouched = [{"role": "user", "content": "u"}]
+    assert ensure_user_turn_last(untouched) == untouched
+    assert ensure_user_turn_last("plain string") == "plain string"
