@@ -53,10 +53,12 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 
 ## Live sample run (issue #39) — done
 
-Run `20260611T213103-7255da`, topic *"Agentic AI in Production"*:
-**status success, 13 pages, all 11 envelope checks pass**, cost **$0.2104**
-(18,422 in / 20,934 out tokens; 3 gatekept Serper searches grounding 14
-real source URLs). Artifacts committed under
+Run `20260611T221020-ae78f8`, topic *"Multi-Agent Systems in Modern
+Software Engineering"*: **status success, 14 pages, all 11 envelope checks
+pass**, cost **$0.2455** (25,074 in / 23,882 out tokens; gatekept Serper
+searches grounding real source URLs). Compiled with XeLaTeX - Hebrew BiDi
+verified correct visually and by the C10 direction check; margins verified
+geometrically by the C8 check. Artifacts committed under
 [`assets/sample_run/`](../assets/sample_run/): `output.pdf`, envelope and
 cost reports, draft, CLI capture, and page screenshots.
 
