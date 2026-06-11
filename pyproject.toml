@@ -43,6 +43,9 @@ packages = ["src/agentscribe"]
 line-length = 100
 target-version = "py312"
 src = ["src", "tests", "scripts"]
+# Notebooks use notebook idioms (prints, semicolons, inline imports); the
+# builder embeds those cells as strings - both stay outside the lint gate.
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 # T20 forbids print() in shipped code (PRD_observability_cost R1); the CLI
