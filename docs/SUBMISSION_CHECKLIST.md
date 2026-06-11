@@ -53,9 +53,10 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 
 ## Live sample run (issue #39) — done
 
-Run `20260611T211111-ff9f36`, topic *"Agentic AI in Production"*:
-**status success, 15 pages, all 11 envelope checks pass**, cost **$0.2309**
-(34,379 in / 21,138 out tokens). Artifacts committed under
+Run `20260611T213103-7255da`, topic *"Agentic AI in Production"*:
+**status success, 13 pages, all 11 envelope checks pass**, cost **$0.2104**
+(18,422 in / 20,934 out tokens; 3 gatekept Serper searches grounding 14
+real source URLs). Artifacts committed under
 [`assets/sample_run/`](../assets/sample_run/): `output.pdf`, envelope and
 cost reports, draft, CLI capture, and page screenshots.
 

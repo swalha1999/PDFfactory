@@ -2,7 +2,7 @@
   "checks": {
     "C1_page_count": {
       "ok": true,
-      "detail": "15 pages (target ~15 -3)",
+      "detail": "13 pages (target ~15 -3)",
       "remediation": null
     },
     "C2_cover": {
@@ -12,7 +12,7 @@
     },
     "C3_toc": {
       "ok": true,
-      "detail": "TOC present; 44 internal links",
+      "detail": "TOC present; 18 internal links",
       "remediation": null
     },
     "C4_chapters": {
@@ -52,7 +52,7 @@
     },
     "C11_bibliography": {
       "ok": true,
-      "detail": "3 cite keys resolved; internal links=44",
+      "detail": "3 cite keys resolved; internal links=18",
       "remediation": null
     }
   },
