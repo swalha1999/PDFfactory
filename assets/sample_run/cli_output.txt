@@ -1,22 +1,21 @@
-[[32m[1minfo     [0m] [1mcrew_kickoff                  [0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcrew[0m [36mtopic[0m=[35m'Agentic AI in Production'[0m [36mts[0m=[35m2026-06-11T18:21:21.513573Z[0m
-[[32m[1minfo     [0m] [1mcrew_finished                 [0m [36mchapters[0m=[35m7[0m [36melements_ok[0m=[35mTrue[0m [36minput_tokens[0m=[35m3283[0m [36moutput_tokens[0m=[35m2786[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcrew[0m [36mtotal_tokens[0m=[35m6069[0m [36mts[0m=[35m2026-06-11T18:21:49.452654Z[0m
-[[32m[1minfo     [0m] [1msandbox_run                   [0m [36mbackend[0m=[35msubprocess_isolated[0m [36mduration_ms[0m=[35m431.2[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mscript_hash[0m=[35mbebb29be0415[0m [36mservice[0m=[35msandbox[0m [36mstatus[0m=[35msuccess[0m [36mstderr_tail[0m=[35m[0m [36mstdout_tail[0m=[35m[0m [36mts[0m=[35m2026-06-11T18:21:49.887590Z[0m
-[[32m[1minfo     [0m] [1mchart_generated               [0m [36mattempt[0m=[35m1[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mfigures[0m [36mts[0m=[35m2026-06-11T18:21:49.887737Z[0m
-2026-06-11 21:21:49 [info     ] latex_build_done               degraded_figure=False run_id=20260611T212121-74a1c1 service=latex sources=2 tex=/Users/swalha/code/PDFfactory/results/20260611T212121-74a1c1/main.tex
-[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m1[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:50.718265Z[0m
-[[32m[1minfo     [0m] [1mbib_pass                      [0m [36mbackend[0m=[35mbibtex[0m [36mexit_code[0m=[35m0[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:50.733874Z[0m
-[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m2[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:51.485028Z[0m
-[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m3[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:52.239217Z[0m
-[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m4[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:52.974720Z[0m
-[[32m[1minfo     [0m] [1mcompile_done                  [0m [36mpasses[0m=[35m4[0m [36mpdf[0m=[35m/Users/swalha/code/PDFfactory/results/20260611T212121-74a1c1/output.pdf[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:21:52.974950Z[0m
-[[32m[1minfo     [0m] [1menvelope_validated            [0m [36mall_pass[0m=[35mFalse[0m [36mfailed[0m=[35m['C1_page_count'][0m [36mremediations[0m=[35m[][0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mvalidator[0m [36mts[0m=[35m2026-06-11T18:21:53.040759Z[0m
-[[32m[1minfo     [0m] [1mcost_report_written           [0m [36mduration_s[0m=[35m31.5[0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mservice[0m=[35mcost[0m [36mtotal_usd[0m=[35m0.031975[0m [36mts[0m=[35m2026-06-11T18:21:53.041396Z[0m
-[[32m[1minfo     [0m] [1mrun_finished                  [0m [36mrun_id[0m=[35m20260611T212121-74a1c1[0m [36mstatus[0m=[35mfailed[0m [36mtotal_usd[0m=[35m0.031975[0m [36mts[0m=[35m2026-06-11T18:21:53.041445Z[0m
-run_id:  20260611T212121-74a1c1
+[[32m[1minfo     [0m] [1mcrew_kickoff                  [0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcrew[0m [36mtopic[0m=[35m'Agentic AI in Production'[0m [36mts[0m=[35m2026-06-11T18:23:48.895665Z[0m
+[[32m[1minfo     [0m] [1mcrew_finished                 [0m [36mchapters[0m=[35m11[0m [36melements_ok[0m=[35mTrue[0m [36minput_tokens[0m=[35m13964[0m [36moutput_tokens[0m=[35m17998[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcrew[0m [36mtotal_tokens[0m=[35m31962[0m [36mts[0m=[35m2026-06-11T18:28:20.093724Z[0m
+[[32m[1minfo     [0m] [1msandbox_run                   [0m [36mbackend[0m=[35msubprocess_isolated[0m [36mduration_ms[0m=[35m318.7[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mscript_hash[0m=[35m77bfbba05255[0m [36mservice[0m=[35msandbox[0m [36mstatus[0m=[35msuccess[0m [36mstderr_tail[0m=[35m[0m [36mstdout_tail[0m=[35m[0m [36mts[0m=[35m2026-06-11T18:28:20.420435Z[0m
+[[32m[1minfo     [0m] [1mchart_generated               [0m [36mattempt[0m=[35m1[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mfigures[0m [36mts[0m=[35m2026-06-11T18:28:20.420573Z[0m
+2026-06-11 21:28:20 [info     ] latex_build_done               degraded_figure=False run_id=20260611T212348-5210b3 service=latex sources=2 tex=/Users/swalha/code/PDFfactory/results/20260611T212348-5210b3/main.tex
+[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m1[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:21.210585Z[0m
+[[32m[1minfo     [0m] [1mbib_pass                      [0m [36mbackend[0m=[35mbibtex[0m [36mexit_code[0m=[35m0[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:21.222106Z[0m
+[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m2[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:22.020515Z[0m
+[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m3[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:22.822177Z[0m
+[[32m[1minfo     [0m] [1mlatex_pass                    [0m [36mexit_code[0m=[35m0[0m [36mn[0m=[35m4[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:23.616776Z[0m
+[[32m[1minfo     [0m] [1mcompile_done                  [0m [36mpasses[0m=[35m4[0m [36mpdf[0m=[35m/Users/swalha/code/PDFfactory/results/20260611T212348-5210b3/output.pdf[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcompiler[0m [36mts[0m=[35m2026-06-11T18:28:23.617021Z[0m
+[[32m[1minfo     [0m] [1menvelope_validated            [0m [36mall_pass[0m=[35mTrue[0m [36mfailed[0m=[35m[][0m [36mremediations[0m=[35m[][0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mvalidator[0m [36mts[0m=[35m2026-06-11T18:28:23.961031Z[0m
+[[32m[1minfo     [0m] [1mcost_report_written           [0m [36mduration_s[0m=[35m275.1[0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mservice[0m=[35mcost[0m [36mtotal_usd[0m=[35m0.17642[0m [36mts[0m=[35m2026-06-11T18:28:23.961643Z[0m
+[[32m[1minfo     [0m] [1mrun_finished                  [0m [36mrun_id[0m=[35m20260611T212348-5210b3[0m [36mstatus[0m=[35msuccess[0m [36mtotal_usd[0m=[35m0.17642[0m [36mts[0m=[35m2026-06-11T18:28:23.961691Z[0m
+run_id:  20260611T212348-5210b3
 topic:   Agentic AI in Production
-status:  failed
-pdf:     /Users/swalha/code/PDFfactory/results/20260611T212121-74a1c1/output.pdf
-draft:   /Users/swalha/code/PDFfactory/results/20260611T212121-74a1c1/draft.md
-envelope: 10/11 checks pass
-failed:  C1_page_count
-cost:    $0.0320 (3283 in / 2786 out tokens)
+status:  success
+pdf:     /Users/swalha/code/PDFfactory/results/20260611T212348-5210b3/output.pdf
+draft:   /Users/swalha/code/PDFfactory/results/20260611T212348-5210b3/draft.md
+envelope: 11/11 checks pass
+cost:    $0.1764 (13964 in / 17998 out tokens)

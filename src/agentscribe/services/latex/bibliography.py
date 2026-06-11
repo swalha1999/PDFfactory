@@ -44,10 +44,15 @@ def build_bib(sources: list[Source], year: str) -> str:
     entries = []
     for source in sources:
         title = escape_tex(source.title)
+        url_line = (
+            f"  howpublished = {{\\url{{{source.url}}}}},\n"
+            if source.url.startswith("http")
+            else ""  # never emit an empty \url{} for a source without one
+        )
         entries.append(
             f"@misc{{{source.cite_key},\n"
             f"  title = {{{title}}},\n"
-            f"  howpublished = {{\\url{{{source.url}}}}},\n"
+            f"{url_line}"
             f"  year = {{{year}}},\n"
             f"  note = {{Accessed {year}}}\n"
             f"}}"

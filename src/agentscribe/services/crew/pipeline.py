@@ -50,13 +50,30 @@ class CrewPipeline:
         self._log = get_logger(service="crew")
         self.stage_timings: dict[str, float] = {}
 
-    def _build_crew(self) -> tuple[Crew, dict[str, Any]]:
+    def _seed_research(self, topic: str) -> str:
+        """Pre-fetch gatekept search results so research never relies on the
+        LLM choosing to call the tool (FR-2 guarantee); degrades gracefully."""
+        from agentscribe.shared.search_client import serper_search
+
+        blocks: list[str] = []
+        for query in (topic, f"{topic} 2026 developments", f"{topic} best practices"):
+            try:
+                result = self._gatekeeper.execute("search", serper_search, query)
+                blocks.append(f"Query: {query}\n{result}")
+            except Exception as exc:
+                self._log.warning("research_seed_failed", query=query, error=str(exc))
+                break
+        # literal braces would break CrewAI's {placeholder} interpolation
+        return "\n\n".join(blocks).replace("{", "(").replace("}", ")")
+
+    def _build_crew(self, topic: str) -> tuple[Crew, dict[str, Any]]:
         search_tool = build_search_tool(self._gatekeeper)
         agents = build_agents(self._config, search_tool)
         tasks = build_tasks(
             agents,
             language=self._config.language,
             target_pages=self._config.target_pages,
+            research_seed=self._seed_research(topic),
         )
         crew = Crew(
             agents=list(agents.values()),
@@ -70,7 +87,7 @@ class CrewPipeline:
         """Run the crew for a topic; returns the draft and token usage (R6)."""
         if not topic or not topic.strip():
             raise ValueError("topic must be a non-empty string")  # CP-2: before any API call
-        crew, parts = self._build_crew()
+        crew, parts = self._build_crew(topic.strip())
         register_llm_metering(self._gatekeeper)  # per-model cost records (R8)
         self._arm_stage_timers(parts["tasks"])
         self._log.info("crew_kickoff", topic=topic)

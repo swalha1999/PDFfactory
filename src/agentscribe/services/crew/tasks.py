@@ -15,15 +15,24 @@ from agentscribe.services.crew.models import MarkdownDraft
 TaskMap = dict[str, Task]
 
 
-def build_tasks(agents: AgentMap, *, language: str, target_pages: int) -> TaskMap:
+def build_tasks(
+    agents: AgentMap, *, language: str, target_pages: int, research_seed: str = ""
+) -> TaskMap:
     """Create the four chained tasks; topic is injected via kickoff inputs."""
+    seed_block = (
+        f"\n\nWeb search results already gathered for you:\n{research_seed}\n"
+        "Build on these real sources (use their urls verbatim); call the "
+        "web_search tool for any gaps."
+        if research_seed
+        else ""
+    )
     research = Task(
         description=(
-            "Research the topic: {topic}. You MUST call the web_search tool at "
-            "least 3 times with different queries about {topic} - never answer "
-            "from memory alone. Gather accurate facts and 4-6 credible sources; "
-            "for every source record the real title, url, and a short cite_key "
-            "(e.g. author2024keyword). Every fact must concern {topic}."
+            "Research the topic: {topic}. Use the web_search tool for anything "
+            "you cannot ground in the provided results - never invent sources. "
+            "Gather accurate facts and 4-6 credible sources; for every source "
+            "record the real title, url, and a short cite_key "
+            "(e.g. author2024keyword). Every fact must concern {topic}." + seed_block
         ),
         expected_output=(
             "A structured fact sheet: bullet-point findings grouped by theme, "
