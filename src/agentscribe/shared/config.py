@@ -90,6 +90,10 @@ class Config:
     def cover(self) -> dict[str, str]:
         return dict(self._setup["cover"])
 
+    @property
+    def sandbox(self) -> dict[str, Any]:
+        return dict(self._setup["sandbox"])
+
     # -- rate_limits.json ---------------------------------------------------
     def service_limits(self, service: str) -> dict[str, int]:
         services = self._rate_limits["services"]

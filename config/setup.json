@@ -13,6 +13,12 @@
   "engineer_model": "anthropic/claude-sonnet-4-6",
   "human_in_the_loop": false,
   "results_dir": "results",
+  "sandbox": {
+    "backend": "subprocess_isolated",
+    "timeout_s": 60,
+    "max_output_mb": 10,
+    "allowed_imports": ["matplotlib", "numpy", "math", "random"]
+  },
   "cover": {
     "author": "Mohammed Abad",
     "course": "Mass Production of AI Agents",
