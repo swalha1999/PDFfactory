@@ -28,6 +28,10 @@ def _normalize_model(kwargs: dict[str, Any]) -> str:
 
 def register_llm_metering(gatekeeper: ApiGatekeeper) -> None:
     """Install (or replace) the success callback feeding the gatekeeper."""
+    # Newer Claude models reject assistant-prefill messages that CrewAI's
+    # ReAct tool prompt emits; modify_params lets LiteLLM reshape the
+    # conversation to Anthropic's requirements.
+    litellm.modify_params = True
 
     def record_call(
         kwargs: dict[str, Any],
