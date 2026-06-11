@@ -22,7 +22,11 @@ TEX_ESCAPES = {
 }
 HEBREW_RUN = re.compile(r"[֐-׿][֐-׿\s,.:;!?'\"-]*[֐-׿]|[֐-׿]")
 CODE_RE = re.compile(r"`([^`]+)`")
-MATH_RE = re.compile(r"\$([^$]+)\$")
+# pandoc-style guards: no space inside the delimiters, closing $ not followed
+# by a digit - so currency prose ("$1.2 billion ... $3 billion") is not math
+MATH_RE = re.compile(r"\$(?!\s)([^$]+?)(?<!\s)\$(?!\d)")
+MATH_MAX_CHARS = 60
+MATH_MAX_SPACES = 6
 CITE_RE = re.compile(r"\[@([A-Za-z0-9_:.-]+)\]")
 LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
 BOLD_RE = re.compile(r"\*\*([^*]+)\*\*")
@@ -47,7 +51,14 @@ def convert_inline(text: str) -> str:
         lambda m: protect(rf"\href{{{m.group(2)}}}{{{escape_tex(m.group(1))}}}"), text
     )
     text = CITE_RE.sub(lambda m: protect(rf"\cite{{{m.group(1)}}}"), text)
-    text = MATH_RE.sub(lambda m: protect(f"${m.group(1)}$"), text)
+
+    def math_guard(match: re.Match[str]) -> str:
+        content = match.group(1)
+        if len(content) > MATH_MAX_CHARS or content.count(" ") > MATH_MAX_SPACES:
+            return match.group(0)  # prose with dollar amounts - escape, not math
+        return protect(f"${content}$")
+
+    text = MATH_RE.sub(math_guard, text)
     text = escape_tex(text)
     text = BOLD_RE.sub(r"\\textbf{\1}", text)
     text = ITALIC_RE.sub(r"\\emph{\1}", text)

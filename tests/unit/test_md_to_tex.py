@@ -78,3 +78,15 @@ def test_lists_convert_and_close() -> None:
 def test_plain_paragraphs_escaped() -> None:
     tex = convert_markdown_body("AT&T owns 100% of it")
     assert r"AT\&T owns 100\% of it" in tex
+
+
+def test_currency_amounts_are_not_math() -> None:
+    text = "revenue reached $1.2 billion this year while Claude hit $3 billion ARR"
+    out = convert_inline(text)
+    assert out == (
+        r"revenue reached \$1.2 billion this year while Claude hit \$3 billion ARR"
+    )  # fully escaped prose, no math span
+    # legit short math still protected
+    assert convert_inline("energy $E = mc^2$ here") == r"energy $E = mc^2$ here"
+    # a single dollar sign is plain prose
+    assert convert_inline("it costs $5 today") == r"it costs \$5 today"
