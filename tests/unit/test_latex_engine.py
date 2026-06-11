@@ -259,3 +259,28 @@ def test_generate_figures_extras_and_skip(tmp_path: Path, monkeypatch: pytest.Mo
     assert "Data Visualizations" in extra_tex
     assert "chart_2.png" in extra_tex
     assert "chart_3.png" not in extra_tex  # failed extra skipped
+
+
+def test_cited_keys_missing_from_sources_get_stub_bib_entries(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from agentscribe.services.crew.models import Source
+
+    def fake_figures(
+        config: Config, draft: MarkdownDraft, run_dir: Path
+    ) -> tuple[list[Path], bool, list[dict[str, str]], str]:
+        path = run_dir / constants.FIGURE_IMAGE_NAME
+        path.write_bytes(b"png")
+        return [path], False, [], ""
+
+    monkeypatch.setattr(engine_mod, "generate_figures", fake_figures)
+    draft = MarkdownDraft(
+        title="T",
+        chapters=[Chapter(heading="H", body_markdown="cites [@listed2026] and [@ghost2026]")],
+        required_elements=RequiredElements(),
+        sources=[Source(title="Listed", url="https://x", cite_key="listed2026")],
+    )
+    artifacts = LatexEngine(Config()).build(draft, tmp_path, "2026-06-12")
+    bib = artifacts.bib_path.read_text()
+    assert "@misc{listed2026," in bib
+    assert "@misc{ghost2026," in bib  # stub for the forgotten source

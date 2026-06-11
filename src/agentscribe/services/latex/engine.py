@@ -14,7 +14,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from agentscribe import constants
-from agentscribe.services.crew.models import MarkdownDraft
+from agentscribe.services.crew.models import MarkdownDraft, Source
 from agentscribe.services.latex import elements
 from agentscribe.services.latex.bibliography import (
     bib_body,
@@ -85,6 +85,12 @@ class LatexEngine:
         sources = normalize_sources(draft.sources)
         keys = [s.cite_key for s in sources]
         markdown = ensure_elements(draft, keys)
+        # every cited key must exist in the bib (C11) - stub entries cover
+        # keys the engineer cited but forgot to list as sources
+        missing = sorted(set(CITE_MARKER.findall(markdown)) - {s.cite_key for s in sources})
+        sources += [
+            Source(title=f"Referenced source ({key})", url="", cite_key=key) for key in missing
+        ]
         if draft.diagram is not None and draft.diagram.usable():
             diagram_tex = render_diagram(draft.diagram)
         else:
