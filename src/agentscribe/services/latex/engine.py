@@ -22,6 +22,7 @@ from agentscribe.services.latex.bibliography import (
     build_bib,
     normalize_sources,
 )
+from agentscribe.services.latex.diagram import render_diagram
 from agentscribe.services.latex.figures import generate_chart
 from agentscribe.services.latex.md_inline import convert_inline
 from agentscribe.services.latex.md_to_tex import contains_hebrew, convert_markdown_body
@@ -84,7 +85,11 @@ class LatexEngine:
         sources = normalize_sources(draft.sources)
         keys = [s.cite_key for s in sources]
         markdown = ensure_elements(draft, keys)
-        body_tex = convert_markdown_body(markdown) + "\n" + elements.TIKZ_DIAGRAM_TEX
+        if draft.diagram is not None and draft.diagram.usable():
+            diagram_tex = render_diagram(draft.diagram)
+        else:
+            diagram_tex = elements.TIKZ_DIAGRAM_TEX
+        body_tex = convert_markdown_body(markdown) + "\n" + diagram_tex
         backend = self._config.bib_backend
         document = assemble_document(
             self._config,

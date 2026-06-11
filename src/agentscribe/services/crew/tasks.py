@@ -83,9 +83,12 @@ def build_tasks(
             "required_elements flag to whether the element truly appears, "
             "list the cite_keys used, and copy the source list (title, url, "
             "cite_key) from the research context. Also fill the chart field: "
-            "a bar-chart spec drawn from real quantities discussed in the "
-            "article (title, x_label, y_label, 3-8 labels with matching "
-            "numeric values) - this becomes the document's generated figure."
+            "pick the kind (bar, barh, line, or pie) that best fits real "
+            "quantities discussed in the article, with title, x_label, "
+            "y_label and 3-8 labels with matching numeric values. And fill "
+            "the diagram field: a block diagram of a process or architecture "
+            "from the article - caption, 4-8 short node labels in flow "
+            "order, and directed edges as [from_index, to_index] pairs."
         ),
         expected_output="A MarkdownDraft JSON object matching the schema exactly.",
         agent=agents["latex_engineer"],

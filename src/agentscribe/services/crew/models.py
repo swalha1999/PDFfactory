@@ -6,6 +6,8 @@ The crew's final task returns a validated ``MarkdownDraft`` via CrewAI's
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -43,10 +45,14 @@ class RequiredElements(BaseModel):
         )
 
 
+ChartKind = Literal["bar", "barh", "line", "pie"]
+
+
 class ChartSpec(BaseModel):
     """Content for the run's Python-generated chart (C7), drawn from the
     article itself; invalid/missing specs fall back to a deterministic chart."""
 
+    kind: ChartKind = "bar"
     title: str = ""
     x_label: str = "Category"
     y_label: str = "Value"
@@ -54,10 +60,30 @@ class ChartSpec(BaseModel):
     values: list[float] = Field(default_factory=list)
 
     def usable(self) -> bool:
+        if self.kind == "pie" and any(v <= 0 for v in self.values):
+            return False
         return (
             2 <= len(self.labels) <= 10
             and len(self.labels) == len(self.values)
             and bool(self.title.strip())
+        )
+
+
+class DiagramSpec(BaseModel):
+    """Block-diagram content (TikZ) drawn from the article: short node labels
+    in flow order plus directed edges as [from_index, to_index] pairs."""
+
+    caption: str = ""
+    nodes: list[str] = Field(default_factory=list)
+    edges: list[tuple[int, int]] = Field(default_factory=list)
+
+    def usable(self) -> bool:
+        n = len(self.nodes)
+        return (
+            3 <= n <= 8
+            and bool(self.caption.strip())
+            and len(self.edges) >= 2
+            and all(0 <= a < n and 0 <= b < n and a != b for a, b in self.edges)
         )
 
 
@@ -69,6 +95,7 @@ class MarkdownDraft(BaseModel):
     required_elements: RequiredElements
     sources: list[Source] = Field(default_factory=list)
     chart: ChartSpec | None = None
+    diagram: DiagramSpec | None = None
 
     def to_markdown(self) -> str:
         """Render the full draft as one Markdown document."""

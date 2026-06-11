@@ -28,41 +28,72 @@ labels = {labels!r}
 values = {values!r}
 
 fig, ax = plt.subplots(figsize=(8, 4.5))
-bars = ax.bar(labels, values, color="#4878a8")
+{plot_code}
 ax.set_title({title!r})
-ax.set_xlabel({x_label!r})
-ax.set_ylabel({y_label!r})
-ax.bar_label(bars, fmt="%g")
-plt.setp(ax.get_xticklabels(), rotation=15, ha="right")
 fig.tight_layout()
 fig.savefig("{output}", dpi=150)
 '''
 
+PLOT_CODE = {
+    "bar": """bars = ax.bar(labels, values, color="#4878a8")
+ax.bar_label(bars, fmt="%g")
+ax.set_xlabel({x_label!r})
+ax.set_ylabel({y_label!r})
+plt.setp(ax.get_xticklabels(), rotation=15, ha="right")""",
+    "barh": """bars = ax.barh(labels, values, color="#6a9a58")
+ax.bar_label(bars, fmt="%g")
+ax.set_xlabel({y_label!r})
+ax.invert_yaxis()""",
+    "line": """ax.plot(labels, values, marker="o", color="#a85478", linewidth=2)
+ax.set_xlabel({x_label!r})
+ax.set_ylabel({y_label!r})
+ax.grid(alpha=0.3)""",
+    "pie": """ax.pie(values, labels=labels, autopct="%1.0f%%",
+       wedgeprops={{"edgecolor": "white"}})
+ax.axis("equal")""",
+}
+
 DIMENSIONS = ["Adoption", "Maturity", "Tooling", "Research", "Industry use"]
+FALLBACK_KINDS = ("bar", "barh", "line")
+
+
+def _render(
+    topic: str, kind: str, title: str, x: str, y: str, labels: list[str], values: list[float]
+) -> str:
+    plot_code = PLOT_CODE[kind].format(x_label=x[:40], y_label=y[:40])
+    return SCRIPT_TEMPLATE.format(
+        topic=topic.replace('"""', "'").replace("\\", ""),
+        labels=[str(label)[:24] for label in labels],
+        values=[round(float(v), 2) for v in values],
+        plot_code=plot_code,
+        title=title[:80],
+        output=constants.FIGURE_IMAGE_NAME,
+    )
 
 
 def build_chart_script(topic: str, spec: ChartSpec | None = None) -> str:
-    """Chart script from the crew's content spec; deterministic fallback."""
-    safe_topic = topic.replace('"""', "'").replace("\\", "")
+    """Chart script from the crew's content spec; deterministic fallback
+    (whose kind also varies by topic so repeated samples differ)."""
     if spec is not None and spec.usable():
-        return SCRIPT_TEMPLATE.format(
-            topic=safe_topic,
-            labels=[str(label)[:24] for label in spec.labels],
-            values=[round(float(v), 2) for v in spec.values],
-            title=spec.title[:80],
-            x_label=spec.x_label[:40],
-            y_label=spec.y_label[:40],
-            output=constants.FIGURE_IMAGE_NAME,
+        return _render(
+            topic,
+            spec.kind,
+            spec.title,
+            spec.x_label,
+            spec.y_label,
+            spec.labels,
+            spec.values,
         )
     digest = hashlib.sha256(topic.encode()).digest()
-    return SCRIPT_TEMPLATE.format(
-        topic=safe_topic,
-        labels=DIMENSIONS,
-        values=[40 + digest[i] % 60 for i in range(len(DIMENSIONS))],
-        title=f"Key dimensions of: {safe_topic}"[:80],
-        x_label="Dimension",
-        y_label="Relative score",
-        output=constants.FIGURE_IMAGE_NAME,
+    kind = FALLBACK_KINDS[digest[5] % len(FALLBACK_KINDS)]
+    return _render(
+        topic,
+        kind,
+        f"Key dimensions of: {topic}",
+        "Dimension",
+        "Relative score",
+        DIMENSIONS,
+        [float(40 + digest[i] % 60) for i in range(len(DIMENSIONS))],
     )
 
 

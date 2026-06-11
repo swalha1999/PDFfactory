@@ -156,3 +156,37 @@ def test_chart_spec_drives_script_with_fallback() -> None:
     assert not bad.usable()
     assert "Key dimensions of" in build_chart_script("T", bad)
     assert "Key dimensions of" in build_chart_script("T", None)
+
+
+def test_chart_kinds_render_and_pass_precheck() -> None:
+    from agentscribe.services.crew.models import ChartSpec
+
+    allowed = ["matplotlib", "numpy", "math", "random"]
+    for kind in ("bar", "barh", "line", "pie"):
+        spec = ChartSpec(kind=kind, title="T", labels=["a", "b", "c"], values=[1.0, 2.0, 3.0])
+        script = build_chart_script("X", spec)
+        assert precheck_script(script, allowed).ok, kind
+    assert "ax.pie" in build_chart_script(
+        "X", ChartSpec(kind="pie", title="T", labels=["a", "b"], values=[1.0, 2.0])
+    )
+    # pie with non-positive values is unusable -> falls back
+    bad_pie = ChartSpec(kind="pie", title="T", labels=["a", "b"], values=[1.0, -2.0])
+    assert not bad_pie.usable()
+
+
+def test_diagram_spec_renders_tikz_and_falls_back() -> None:
+    from agentscribe.services.crew.models import DiagramSpec
+    from agentscribe.services.latex.diagram import render_diagram
+
+    spec = DiagramSpec(
+        caption="CI/CD flow with 100% AI & review",
+        nodes=["Commit", "AI Review", "Tests", "Deploy"],
+        edges=[(0, 1), (1, 2), (2, 3)],
+    )
+    assert spec.usable()
+    tex = render_diagram(spec)
+    assert tex.count(r"\node[block") == 4
+    assert r"\draw[arrow] (n0) -- (n1);" in tex
+    assert r"100\% AI \&" in tex  # caption escaped
+    assert not DiagramSpec(caption="x", nodes=["a", "b"], edges=[(0, 1)]).usable()
+    assert not DiagramSpec(caption="x", nodes=["a", "b", "c"], edges=[(0, 9), (1, 2)]).usable()
