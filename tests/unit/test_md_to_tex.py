@@ -53,7 +53,8 @@ def test_display_math_becomes_equation() -> None:
 def test_table_becomes_tabularx_within_textwidth() -> None:
     md = "| A | B |\n|---|---|\n| 1 | 2 |\n| 3 | 4 |"
     tex = convert_markdown_body(md)
-    assert r"\begin{tabularx}{\textwidth}{XX}" in tex
+    assert r"\begin{tabularx}{\textwidth}" in tex
+    assert tex.count(r">{\raggedright\arraybackslash}X") == 2
     assert r"\toprule" in tex
     assert r"1 & 2 \\" in tex
     assert tex.count(r"\\") >= 3

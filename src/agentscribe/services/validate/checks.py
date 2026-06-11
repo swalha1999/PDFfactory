@@ -79,34 +79,22 @@ def c7_python_graph(ctx: ValidationContext, chart_name: str) -> CheckResult:
     return CheckResult(False, f"{chart_name} not embedded")
 
 
-def _table_line_ranges(tex: str) -> list[tuple[int, int]]:
-    """1-based line ranges of table/tabular(x) environments in main.tex."""
-    ranges, stack = [], []
-    for lineno, line in enumerate(tex.splitlines(), start=1):
-        for match in TABLE_ENV_RE.finditer(line):
-            if match.group(1) == "begin":
-                stack.append(lineno)
-            elif stack:
-                ranges.append((stack.pop(), lineno))
-    return ranges
-
-
-def c8_table(ctx: ValidationContext, threshold_pt: float) -> CheckResult:
-    """Overfull boxes count against C8 only when inside a table env (R6)."""
+def c8_table(ctx: ValidationContext, threshold_pt: float, margin_pt: float) -> CheckResult:
+    """Table present and nothing crosses the right margin - measured directly
+    on the PDF geometry (compiler-log overfulls include phantom warnings from
+    tabularx's trial measurement passes, so logs are not a reliable oracle)."""
     has_table = "\\begin{tabularx}" in ctx.tex or "\\begin{tabular}" in ctx.tex
     if not has_table:
         return CheckResult(False, "no table environment found")
-    ranges = _table_line_ranges(ctx.tex)
-    overflows = []
-    for pt, line in OVERFULL_RE.findall(ctx.final_log or ctx.logs):
-        if float(pt) <= threshold_pt or not line:
-            continue
-        if any(start <= int(line) <= end for start, end in ranges):
-            overflows.append(f"{float(pt):.1f}pt at tex line {line}")
+    right_limit = ctx.page_width - margin_pt + threshold_pt
+    overflows = [
+        f"page {page}: content reaches x={x1:.0f}pt (limit {right_limit:.0f}pt)"
+        for page, x1 in enumerate(ctx.page_max_x1, start=1)
+        if ctx.page_width and x1 > right_limit
+    ]
     if overflows:
-        detail = f"table overfull hbox: {overflows} (> {threshold_pt}pt)"
-        return CheckResult(False, detail, remediation="table_overflow")
-    return CheckResult(True, "table present; no table overfull box beyond threshold")
+        return CheckResult(False, "; ".join(overflows), remediation="table_overflow")
+    return CheckResult(True, "table present; no content crosses the text-width margin")
 
 
 def c9_math(ctx: ValidationContext) -> CheckResult:

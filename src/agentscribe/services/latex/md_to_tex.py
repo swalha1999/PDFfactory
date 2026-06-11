@@ -27,7 +27,8 @@ def _emit_table(rows: list[str]) -> list[str]:
     header = _table_cells(rows[0])
     body = [r for r in rows[1:] if not TABLE_RULE_RE.match(r)]
     columns = len(header)
-    spec = "X" * columns  # tabularx X columns share \textwidth - no overflow (C8)
+    # ragged-right X columns share \textwidth and break long content (C8)
+    spec = r">{\raggedright\arraybackslash}X" * columns
     out = [r"\begin{table}[ht!]", r"\centering", rf"\begin{{tabularx}}{{\textwidth}}{{{spec}}}"]
     out += [r"\toprule", " & ".join(header) + r" \\", r"\midrule"]
     for row in body:

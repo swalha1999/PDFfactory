@@ -25,6 +25,11 @@ PREAMBLE_TEMPLATE = r"""\documentclass[{font_size}]{{{document_class}}}
 \usepackage{{microtype}}
 \emergencystretch=3em
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{{hyperref}}
+% let long URLs break after every character class (no xurl in BasicTeX)
+\Urlmuskip=0mu plus 2mu\relax
+\makeatletter
+\g@addto@macro\UrlBreaks{{\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\-\do\_\do\/\do\.\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}}
+\makeatother
 
 \pagestyle{{fancy}}
 \fancyhf{{}}

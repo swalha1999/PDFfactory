@@ -25,6 +25,8 @@ class ValidationContext:
     build_dir: Path
     page_count: int = 0
     page_texts: list[str] = field(default_factory=list)
+    page_width: float = 0.0
+    page_max_x1: list[float] = field(default_factory=list)  # rightmost word edge per page
     internal_link_count: int = 0
     tex: str = ""
     logs: str = ""
@@ -67,7 +69,11 @@ def load_context(pdf_path: Path, build_dir: Path) -> ValidationContext:
     ctx.page_count = len(reader.pages)
     ctx.internal_link_count = _count_internal_links(reader)
     with pdfplumber.open(str(pdf_path)) as pdf:
-        ctx.page_texts = [page.extract_text() or "" for page in pdf.pages]
+        ctx.page_width = float(pdf.pages[0].width) if pdf.pages else 0.0
+        for page in pdf.pages:
+            ctx.page_texts.append(page.extract_text() or "")
+            words = page.extract_words()
+            ctx.page_max_x1.append(max((float(w["x1"]) for w in words), default=0.0))
     tex_path = build_dir / constants.MAIN_TEX_NAME
     ctx.tex = tex_path.read_text(encoding="utf-8") if tex_path.is_file() else ""
     ctx.logs = _read_all(build_dir, "*.log")

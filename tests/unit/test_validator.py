@@ -68,23 +68,23 @@ def test_c7_requires_sandbox_provenance(tmp_path: Path) -> None:
     assert "degraded" in degraded.detail
 
 
-def test_ev4_overfull_table_flagged() -> None:
-    # GOOD_TEX has its tabularx on line 5; an overfull there counts against C8
-    logs = "Package: fancyhdr\nOverfull \\hbox (25.31pt too wide) detected at line 5"
-    result = checks.c8_table(ctx(logs=logs), threshold_pt=10)
+MARGIN_PT = 70.87  # 2.5cm
+
+
+def test_ev4_content_crossing_margin_fails_c8() -> None:
+    # A4 width 595pt, margin 70.87pt -> right limit ~534pt with 10pt slack
+    bad = ctx(page_width=595.0, page_max_x1=[520.0, 560.0])
+    result = checks.c8_table(bad, threshold_pt=10, margin_pt=MARGIN_PT)
     assert not result.ok
     assert result.remediation == "table_overflow"
-    assert "line 5" in result.detail
-    assert checks.c8_table(ctx(), threshold_pt=10).ok  # no overfulls at all
+    assert "page 2" in result.detail
 
 
-def test_ev4_prose_overfull_does_not_fail_table_check() -> None:
-    # an overfull in a prose paragraph (line 2 - not a table line) is ignored
-    logs = "Overfull \\hbox (34.76pt too wide) in paragraph at lines 2--2"
-    assert checks.c8_table(ctx(logs=logs), threshold_pt=10).ok
-    # small overfull inside the table is tolerated by the threshold
-    small = "Overfull \\hbox (3.2pt too wide) detected at line 5"
-    assert checks.c8_table(ctx(logs=small), threshold_pt=10).ok
+def test_ev4_content_within_margin_passes_c8() -> None:
+    good = ctx(page_width=595.0, page_max_x1=[520.0, 530.0])
+    assert checks.c8_table(good, threshold_pt=10, margin_pt=MARGIN_PT).ok
+    no_table = ctx(tex="no tables here", page_width=595.0, page_max_x1=[100.0])
+    assert not checks.c8_table(no_table, threshold_pt=10, margin_pt=MARGIN_PT).ok
 
 
 def test_ev3_flat_formula_detection() -> None:

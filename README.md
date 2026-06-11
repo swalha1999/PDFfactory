@@ -135,7 +135,7 @@ uv run python scripts/secret_scan.py                  # no committed secrets
 ```
 
 The same gates run in CI on every push. Tests never call live APIs — the crew
-is mocked; integration tests that need LuaLaTeX skip automatically where it
+is mocked; integration tests that need XeLaTeX skip automatically where it
 is missing.
 
 ## Troubleshooting
@@ -159,4 +159,4 @@ MIT License. Built by **Muhammad Swalha** and **Mohammed Abad** for *Mass Produc
 [matplotlib](https://matplotlib.org), [pypdf](https://pypdf.readthedocs.io),
 [pdfplumber](https://github.com/jsvine/pdfplumber),
 [structlog](https://www.structlog.org) and a LaTeX toolchain
-(LuaLaTeX, polyglossia, TikZ, fancyhdr).
+(XeLaTeX, polyglossia, TikZ, fancyhdr).

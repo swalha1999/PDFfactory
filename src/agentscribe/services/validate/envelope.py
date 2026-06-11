@@ -29,7 +29,9 @@ def validate_envelope(
         "C5_headers": checks.c5_headers(ctx),
         "C6_image": checks.c6_image(ctx),
         "C7_python_graph": checks.c7_python_graph(ctx, constants.FIGURE_IMAGE_NAME),
-        "C8_table": checks.c8_table(ctx, threshold),
+        "C8_table": checks.c8_table(
+            ctx, threshold, margin_pt=float(config.latex["margin_cm"]) * 28.3465
+        ),
         "C9_math": checks.c9_math(ctx),
         "C10_bidi": checks.c10_bidi(ctx),
         "C11_bibliography": checks.c11_bibliography(ctx),

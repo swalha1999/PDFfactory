@@ -47,9 +47,15 @@ class BuildArtifacts(BaseModel):
     figure_manifest: list[dict[str, str]] = Field(default_factory=list)
 
 
+REFERENCES_HEADING = re.compile(r"^\s*(\d+[.)]?\s*)?(references|bibliography|sources)\s*$", re.I)
+
+
 def ensure_elements(draft: MarkdownDraft, cite_keys: list[str]) -> str:
     """Return the full Markdown with every missing envelope element appended."""
-    markdown = "\n\n".join(f"## {c.heading}\n\n{c.body_markdown}" for c in draft.chapters)
+    chapters = [c for c in draft.chapters if not REFERENCES_HEADING.match(c.heading)]
+    # the real bibliography is generated from sources - an LLM-written
+    # references chapter would duplicate it (and overflow with raw urls)
+    markdown = "\n\n".join(f"## {c.heading}\n\n{c.body_markdown}" for c in chapters)
     if not TABLE_MARKER.search(markdown):
         markdown += "\n\n" + elements.DEFAULT_TABLE_MD
     if not FORMULA_MARKER.search(markdown):
