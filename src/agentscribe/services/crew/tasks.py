@@ -82,7 +82,10 @@ def build_tasks(
             "table/formula/figure/citation marker verbatim). Set each "
             "required_elements flag to whether the element truly appears, "
             "list the cite_keys used, and copy the source list (title, url, "
-            "cite_key) from the research context."
+            "cite_key) from the research context. Also fill the chart field: "
+            "a bar-chart spec drawn from real quantities discussed in the "
+            "article (title, x_label, y_label, 3-8 labels with matching "
+            "numeric values) - this becomes the document's generated figure."
         ),
         expected_output="A MarkdownDraft JSON object matching the schema exactly.",
         agent=agents["latex_engineer"],

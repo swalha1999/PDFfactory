@@ -43,6 +43,24 @@ class RequiredElements(BaseModel):
         )
 
 
+class ChartSpec(BaseModel):
+    """Content for the run's Python-generated chart (C7), drawn from the
+    article itself; invalid/missing specs fall back to a deterministic chart."""
+
+    title: str = ""
+    x_label: str = "Category"
+    y_label: str = "Value"
+    labels: list[str] = Field(default_factory=list)
+    values: list[float] = Field(default_factory=list)
+
+    def usable(self) -> bool:
+        return (
+            2 <= len(self.labels) <= 10
+            and len(self.labels) == len(self.values)
+            and bool(self.title.strip())
+        )
+
+
 class MarkdownDraft(BaseModel):
     """The crew's product: an edited, structured draft ready for LaTeX."""
 
@@ -50,6 +68,7 @@ class MarkdownDraft(BaseModel):
     chapters: list[Chapter]
     required_elements: RequiredElements
     sources: list[Source] = Field(default_factory=list)
+    chart: ChartSpec | None = None
 
     def to_markdown(self) -> str:
         """Render the full draft as one Markdown document."""

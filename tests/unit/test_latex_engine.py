@@ -74,7 +74,9 @@ def test_ensure_elements_keeps_existing_without_duplicates() -> None:
 def test_engine_build_writes_tex_bib_and_figure(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    def fake_chart(config: Config, topic: str, run_dir: Path) -> tuple[Path, bool, SandboxResult]:
+    def fake_chart(
+        config: Config, topic: str, run_dir: Path, spec: object = None
+    ) -> tuple[Path, bool, SandboxResult]:
         path = run_dir / constants.FIGURE_IMAGE_NAME
         path.write_bytes(b"png")
         return path, False, SandboxResult(status="success", manifest=[{"file": "chart.png"}])
@@ -133,3 +135,24 @@ def test_compiler_failure_surfaces_log_tail(
     monkeypatch.setattr(compiler_mod, "_run", fake_run)
     with pytest.raises(CompileError, match="Undefined control sequence"):
         compile_pdf(Config(), tmp_path)
+
+
+def test_chart_spec_drives_script_with_fallback() -> None:
+    from agentscribe.services.crew.models import ChartSpec
+
+    spec = ChartSpec(
+        title="AI adoption by year",
+        x_label="Year",
+        y_label="Percent",
+        labels=["2024", "2025", "2026"],
+        values=[12.0, 31.5, 55.0],
+    )
+    script = build_chart_script("T", spec)
+    assert "AI adoption by year" in script
+    assert "[12.0, 31.5, 55.0]" in script
+    assert precheck_script(script, ["matplotlib", "numpy", "math", "random"]).ok
+    # unusable specs fall back to the deterministic chart
+    bad = ChartSpec(title="x", labels=["a"], values=[1.0, 2.0])
+    assert not bad.usable()
+    assert "Key dimensions of" in build_chart_script("T", bad)
+    assert "Key dimensions of" in build_chart_script("T", None)

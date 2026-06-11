@@ -98,7 +98,9 @@ class LatexEngine:
         tex_path.write_text(document, encoding="utf-8")
         bib_path = run_dir / constants.REFERENCES_BIB_NAME
         bib_path.write_text(build_bib(sources, year=date[:4]), encoding="utf-8")
-        figure_path, degraded, sandbox_result = generate_chart(self._config, draft.title, run_dir)
+        figure_path, degraded, sandbox_result = generate_chart(
+            self._config, draft.title, run_dir, spec=draft.chart
+        )
         manifest_path = run_dir / constants.FIGURE_MANIFEST_NAME
         manifest_path.write_text(json.dumps(sandbox_result.manifest, indent=2), encoding="utf-8")
         self._log.info(
