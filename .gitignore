@@ -1,0 +1,29 @@
+# Secrets — PRD §4.3: secrets come from the environment, never committed.
+.env
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# uv / virtualenv
+.venv/
+
+# Tooling caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Per-run artifacts (PLAN §7: results/ is git-ignored)
+results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
