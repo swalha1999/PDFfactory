@@ -18,7 +18,7 @@ from agentscribe.shared.search_client import serper_search
 def build_search_tool(gatekeeper: ApiGatekeeper) -> Any:
     """Create the crew search tool bound to the run's gatekeeper."""
 
-    @tool("web_search")  # type: ignore[misc]  # crewai's decorator is untyped
+    @tool("web_search")  # type: ignore[untyped-decorator]  # crewai's decorator is untyped
     def web_search(query: str) -> str:
         """Search the web for current facts and credible sources about a query.
 
