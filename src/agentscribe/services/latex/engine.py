@@ -23,7 +23,7 @@ from agentscribe.services.latex.bibliography import (
     normalize_sources,
 )
 from agentscribe.services.latex.diagram import render_diagram
-from agentscribe.services.latex.figures import generate_chart
+from agentscribe.services.latex.figure_set import generate_figures
 from agentscribe.services.latex.md_inline import convert_inline
 from agentscribe.services.latex.md_to_tex import contains_hebrew, convert_markdown_body
 from agentscribe.services.latex.templates import assemble_document
@@ -89,7 +89,10 @@ class LatexEngine:
             diagram_tex = render_diagram(draft.diagram)
         else:
             diagram_tex = elements.TIKZ_DIAGRAM_TEX
-        body_tex = convert_markdown_body(markdown) + "\n" + diagram_tex
+        figure_paths, degraded, manifest, extra_tex = generate_figures(self._config, draft, run_dir)
+        body_tex = "\n".join(
+            part for part in (convert_markdown_body(markdown), extra_tex, diagram_tex) if part
+        )
         backend = self._config.bib_backend
         document = assemble_document(
             self._config,
@@ -103,11 +106,8 @@ class LatexEngine:
         tex_path.write_text(document, encoding="utf-8")
         bib_path = run_dir / constants.REFERENCES_BIB_NAME
         bib_path.write_text(build_bib(sources, year=date[:4]), encoding="utf-8")
-        figure_path, degraded, sandbox_result = generate_chart(
-            self._config, draft.title, run_dir, spec=draft.chart
-        )
         manifest_path = run_dir / constants.FIGURE_MANIFEST_NAME
-        manifest_path.write_text(json.dumps(sandbox_result.manifest, indent=2), encoding="utf-8")
+        manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         self._log.info(
             "latex_build_done",
             tex=str(tex_path),
@@ -117,9 +117,9 @@ class LatexEngine:
         return BuildArtifacts(
             tex_path=tex_path,
             bib_path=bib_path,
-            figure_paths=[figure_path],
+            figure_paths=figure_paths,
             degraded_figure=degraded,
-            figure_manifest=sandbox_result.manifest,
+            figure_manifest=manifest,
         )
 
 

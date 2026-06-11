@@ -95,7 +95,17 @@ class MarkdownDraft(BaseModel):
     required_elements: RequiredElements
     sources: list[Source] = Field(default_factory=list)
     chart: ChartSpec | None = None
+    charts: list[ChartSpec] = Field(default_factory=list)
     diagram: DiagramSpec | None = None
+
+    def usable_charts(self) -> list[ChartSpec]:
+        """All usable chart specs, primary first, deduped, capped at three."""
+        candidates = ([self.chart] if self.chart else []) + list(self.charts)
+        unique: list[ChartSpec] = []
+        for spec in candidates:
+            if spec.usable() and all(spec.title != seen.title for seen in unique):
+                unique.append(spec)
+        return unique[:3]
 
     def to_markdown(self) -> str:
         """Render the full draft as one Markdown document."""

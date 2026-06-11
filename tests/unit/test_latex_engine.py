@@ -74,14 +74,14 @@ def test_ensure_elements_keeps_existing_without_duplicates() -> None:
 def test_engine_build_writes_tex_bib_and_figure(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    def fake_chart(
-        config: Config, topic: str, run_dir: Path, spec: object = None
-    ) -> tuple[Path, bool, SandboxResult]:
+    def fake_figures(
+        config: Config, draft: MarkdownDraft, run_dir: Path
+    ) -> tuple[list[Path], bool, list[dict[str, str]], str]:
         path = run_dir / constants.FIGURE_IMAGE_NAME
         path.write_bytes(b"png")
-        return path, False, SandboxResult(status="success", manifest=[{"file": "chart.png"}])
+        return [path], False, [{"file": "chart.png", "source": "sandbox"}], ""
 
-    monkeypatch.setattr(engine_mod, "generate_chart", fake_chart)
+    monkeypatch.setattr(engine_mod, "generate_figures", fake_figures)
     artifacts = LatexEngine(Config()).build(bare_draft(), tmp_path, "2026-06-11")
     tex = artifacts.tex_path.read_text()
     assert artifacts.tex_path.name == constants.MAIN_TEX_NAME
@@ -190,3 +190,72 @@ def test_diagram_spec_renders_tikz_and_falls_back() -> None:
     assert r"100\% AI \&" in tex  # caption escaped
     assert not DiagramSpec(caption="x", nodes=["a", "b"], edges=[(0, 1)]).usable()
     assert not DiagramSpec(caption="x", nodes=["a", "b", "c"], edges=[(0, 9), (1, 2)]).usable()
+
+
+def test_usable_charts_dedupes_and_caps() -> None:
+    from agentscribe.services.crew.models import ChartSpec, MarkdownDraft, RequiredElements
+
+    spec = ChartSpec(title="A", labels=["x", "y"], values=[1.0, 2.0])
+    dup = ChartSpec(title="A", labels=["x", "y"], values=[3.0, 4.0])
+    others = [
+        ChartSpec(kind="line", title=f"T{i}", labels=["x", "y"], values=[1.0, 2.0])
+        for i in range(4)
+    ]
+    draft = MarkdownDraft(
+        title="T",
+        chapters=[],
+        required_elements=RequiredElements(),
+        chart=spec,
+        charts=[dup, *others],
+    )
+    charts = draft.usable_charts()
+    assert len(charts) == 3
+    assert charts[0].title == "A"
+
+
+def test_generate_figures_extras_and_skip(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from agentscribe.services.crew.models import ChartSpec, MarkdownDraft, RequiredElements
+    from agentscribe.services.latex import figure_set
+    from agentscribe.shared.sandbox import SandboxResult
+
+    def fake_primary(
+        config: Config, topic: str, run_dir: Path, spec: object = None
+    ) -> tuple[Path, bool, SandboxResult]:
+        path = run_dir / constants.FIGURE_IMAGE_NAME
+        path.write_bytes(b"png")
+        return (
+            path,
+            False,
+            SandboxResult(status="success", manifest=[{"file": "chart.png", "source": "sandbox"}]),
+        )
+
+    calls = {"n": 0}
+
+    def fake_extra_sandbox(script: str, expected: list[str], run_dir: Path, **kw: object) -> object:
+        calls["n"] += 1
+        if calls["n"] == 1:  # first extra succeeds
+            (run_dir / expected[0]).write_bytes(b"png")
+            return SandboxResult(
+                status="success", manifest=[{"file": expected[0], "source": "sandbox"}]
+            )
+        return SandboxResult(status="error")  # second extra fails -> skipped
+
+    monkeypatch.setattr(figure_set, "generate_chart", fake_primary)
+    monkeypatch.setattr(figure_set, "run_in_sandbox", fake_extra_sandbox)
+    draft = MarkdownDraft(
+        title="T",
+        chapters=[],
+        required_elements=RequiredElements(),
+        charts=[
+            ChartSpec(title="One", labels=["a", "b"], values=[1.0, 2.0]),
+            ChartSpec(kind="line", title="Two", labels=["a", "b"], values=[1.0, 2.0]),
+            ChartSpec(kind="pie", title="Three", labels=["a", "b"], values=[1.0, 2.0]),
+        ],
+    )
+    paths, degraded, manifest, extra_tex = figure_set.generate_figures(Config(), draft, tmp_path)
+    assert [p.name for p in paths] == ["chart.png", "chart_2.png"]
+    assert not degraded
+    assert len(manifest) == 2
+    assert "Data Visualizations" in extra_tex
+    assert "chart_2.png" in extra_tex
+    assert "chart_3.png" not in extra_tex  # failed extra skipped

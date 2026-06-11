@@ -58,7 +58,14 @@ FALLBACK_KINDS = ("bar", "barh", "line")
 
 
 def _render(
-    topic: str, kind: str, title: str, x: str, y: str, labels: list[str], values: list[float]
+    topic: str,
+    kind: str,
+    title: str,
+    x: str,
+    y: str,
+    labels: list[str],
+    values: list[float],
+    output: str = constants.FIGURE_IMAGE_NAME,
 ) -> str:
     plot_code = PLOT_CODE[kind].format(x_label=x[:40], y_label=y[:40])
     return SCRIPT_TEMPLATE.format(
@@ -67,11 +74,13 @@ def _render(
         values=[round(float(v), 2) for v in values],
         plot_code=plot_code,
         title=title[:80],
-        output=constants.FIGURE_IMAGE_NAME,
+        output=output,
     )
 
 
-def build_chart_script(topic: str, spec: ChartSpec | None = None) -> str:
+def build_chart_script(
+    topic: str, spec: ChartSpec | None = None, output: str = constants.FIGURE_IMAGE_NAME
+) -> str:
     """Chart script from the crew's content spec; deterministic fallback
     (whose kind also varies by topic so repeated samples differ)."""
     if spec is not None and spec.usable():
@@ -83,6 +92,7 @@ def build_chart_script(topic: str, spec: ChartSpec | None = None) -> str:
             spec.y_label,
             spec.labels,
             spec.values,
+            output=output,
         )
     digest = hashlib.sha256(topic.encode()).digest()
     kind = FALLBACK_KINDS[digest[5] % len(FALLBACK_KINDS)]
