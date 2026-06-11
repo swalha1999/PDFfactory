@@ -99,6 +99,10 @@ class Config:
     def latex(self) -> dict[str, Any]:
         return dict(self._setup["latex"])
 
+    @property
+    def validator(self) -> dict[str, Any]:
+        return dict(self._setup["validator"])
+
     # -- rate_limits.json ---------------------------------------------------
     def service_limits(self, service: str) -> dict[str, int]:
         services = self._rate_limits["services"]

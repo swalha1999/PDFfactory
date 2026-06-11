@@ -41,3 +41,11 @@ def test_lc1_bare_draft_compiles_to_pdf(tmp_path: Path) -> None:
     assert pdf_path.is_file()
     assert pdf_path.stat().st_size > 10_000
     assert len(logs) == 5  # 4 latex passes + bibtex
+
+    # EV: validate the real artifacts - every check except page count (a bare
+    # one-chapter draft can't reach ~15 pages) must pass.
+    from agentscribe.services.validate.envelope import validate_envelope
+
+    report = validate_envelope(config, pdf_path, tmp_path, draft.title)
+    failed = [name for name, c in report.checks.items() if not c.ok]
+    assert failed in ([], ["C1_page_count"]), report.to_markdown()

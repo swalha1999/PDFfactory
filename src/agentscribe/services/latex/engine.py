@@ -7,6 +7,7 @@ then writes all build inputs under the run directory.
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -92,6 +93,8 @@ class LatexEngine:
         bib_path = run_dir / constants.REFERENCES_BIB_NAME
         bib_path.write_text(build_bib(sources, year=date[:4]), encoding="utf-8")
         figure_path, degraded, sandbox_result = generate_chart(self._config, draft.title, run_dir)
+        manifest_path = run_dir / constants.FIGURE_MANIFEST_NAME
+        manifest_path.write_text(json.dumps(sandbox_result.manifest, indent=2), encoding="utf-8")
         self._log.info(
             "latex_build_done",
             tex=str(tex_path),
