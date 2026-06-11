@@ -1,0 +1,7 @@
+{
+  "version": "1.00",
+  "level": "INFO",
+  "console_pretty": true,
+  "jsonl_file_per_run": true,
+  "redact_keys": ["api_key", "authorization", "x-api-key", "openai_api_key", "anthropic_api_key", "serper_api_key"]
+}

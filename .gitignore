@@ -24,6 +24,18 @@ htmlcov/
 # Per-run artifacts (PLAN §7: results/ is git-ignored)
 results/
 
+# LaTeX build junk
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.toc
+*.out
+*.log
+
 # OS / editor
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/

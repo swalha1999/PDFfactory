@@ -1,0 +1,9 @@
+{
+  "version": "1.00",
+  "prices_per_million_tokens_usd": {
+    "openai/gpt-4o-mini": { "input": 0.15, "output": 0.6 },
+    "openai/gpt-4o": { "input": 2.5, "output": 10.0 },
+    "anthropic/claude-haiku-4-5": { "input": 1.0, "output": 5.0 },
+    "anthropic/claude-sonnet-4-6": { "input": 3.0, "output": 15.0 }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "1.00",
+  "language": "en",
+  "bidi_chapter_language": "he",
+  "target_pages": 15,
+  "compiler": "lualatex",
+  "compile_passes": 4,
+  "bib_backend": "bibtex",
+  "document_class": "article",
+  "search_provider": "serper",
+  "llm_provider": "anthropic",
+  "worker_model": "anthropic/claude-haiku-4-5",
+  "engineer_model": "anthropic/claude-sonnet-4-6",
+  "human_in_the_loop": false,
+  "results_dir": "results",
+  "cover": {
+    "author": "Mohammed Abad",
+    "course": "Mass Production of AI Agents",
+    "lecturer": "Dr. Yoram Segal"
+  }
+}

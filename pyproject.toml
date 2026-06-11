@@ -1,15 +1,27 @@
 # AgentScribe — project metadata, dependencies, and quality-gate config.
 # uv-only (no pip/venv); commit pyproject.toml + uv.lock (docs/TODO.md T1.1).
-# Runtime libraries (crewai, matplotlib, pypdf, ...) are added in the phase
-# that first imports them (docs/AI_STACK.md); this scaffold pins only the
-# tooling the CI gates need so `uv sync` stays fast and deterministic.
 
 [project]
 name = "agentscribe"
-version = "0.1.0"
+version = "1.0.0"
 description = "CrewAI multi-agent pipeline that turns a topic into a typeset PDF via LaTeX."
-requires-python = ">=3.10"
-dependencies = []
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = { text = "MIT" }
+authors = [{ name = "Mohammed Abad" }]
+dependencies = [
+    "crewai>=0.80,<1",
+    "pydantic>=2.9,<3",
+    "pydantic-settings>=2.5,<3",
+    "matplotlib>=3.9",
+    "pypdf>=4,<7",
+    "pdfplumber>=0.11",
+    "structlog>=24",
+    "requests>=2.32",
+]
+
+[project.scripts]
+agentscribe = "agentscribe.main:main"
 
 [dependency-groups]
 dev = [
@@ -29,25 +41,35 @@ packages = ["src/agentscribe"]
 # --- Lint & format (docs/TODO.md T1.3; PRD §4.3: 0 ruff violations) ---------
 [tool.ruff]
 line-length = 100
-src = ["src", "tests"]
+target-version = "py312"
+src = ["src", "tests", "scripts"]
 
 [tool.ruff.lint]
-# T20 forbids print() in shipped code (PRD_observability_cost R1).
-select = ["E", "F", "I", "B", "UP", "T20"]
+# T20 forbids print() in shipped code (PRD_observability_cost R1); the CLI
+# (main.py) and repo scripts are the only allowed user-facing print surfaces.
+select = ["E", "F", "I", "W", "UP", "B", "SIM", "N", "T20"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/agentscribe/main.py" = ["T20"]
+"scripts/*" = ["T20"]
 
 # --- Type checking ----------------------------------------------------------
 [tool.mypy]
 files = ["src", "tests"]
 python_version = "3.12"
 strict = true
+ignore_missing_imports = true
 
 # --- Tests & coverage (docs/TODO.md T1.3, T6.3; PRD §2 G5: >=85%) -----------
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-q"
+markers = ["live: tests that hit live external APIs (deselected by default)"]
 
 [tool.coverage.run]
 source = ["agentscribe"]
 branch = true
+omit = ["src/agentscribe/main.py"]
 
 [tool.coverage.report]
 # The >=85% gate is config-driven here so CI carries no hard-coded number.

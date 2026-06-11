@@ -12,7 +12,7 @@ from agentscribe.constants import (
 
 
 def test_version_is_set() -> None:
-    assert agentscribe.__version__ == "0.1.0"
+    assert agentscribe.__version__ == "1.0.0"
 
 
 def test_config_version_starts_at_one() -> None:

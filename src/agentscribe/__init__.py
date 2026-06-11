@@ -3,4 +3,4 @@
 Single importable package; see docs/PLAN.md §7 for the target layout.
 """
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
