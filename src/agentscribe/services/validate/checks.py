@@ -10,16 +10,14 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from agentscribe.services.validate.bidi import contains_hebrew, rtl_applied
 from agentscribe.services.validate.context import ValidationContext
 
-HEBREW_RE = re.compile(r"[֐-׿]")
 LATIN_RE = re.compile(r"[A-Za-z]{3,}")
 INCLUDEGRAPHICS_RE = re.compile(r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}")
 SECTION_RE = re.compile(r"\\(?:section|chapter)\{")
 MATH_ENV_RE = re.compile(r"\\begin\{(?:equation|align|gather|multline)\*?\}")
 CITE_RE = re.compile(r"\\cite\{([^}]+)\}")
-OVERFULL_RE = re.compile(r"Overfull \\hbox \((\d+(?:\.\d+)?)pt too wide(?:[^\n]*?at lines? (\d+))?")
-TABLE_ENV_RE = re.compile(r"\\(begin|end)\{(?:table|tabularx|tabular)\}")
 UNDEFINED_CITE_RE = re.compile(r"Citation `([^']+)' .*undefined", re.I)
 FLAT_FORMULA_RE = re.compile(r"\b[A-Za-z]\s*=\s*[A-Za-z0-9][A-Za-z0-9^_+\-*/]{2,}")
 
@@ -112,27 +110,11 @@ def c9_math(ctx: ValidationContext) -> CheckResult:
     return CheckResult(True, f"{envs} display-math environment(s)")
 
 
-HEBREW_FINALS = "ךםןףץ"
-HEBREW_WORD_RE = re.compile(r"[֐-׿]{2,}")
-
-
-def _rtl_applied(text: str) -> bool:
-    """PDF extraction is visual-order: with correct RTL, final letters land at
-    the *start* of extracted words; at the *end* means the engine laid the
-    Hebrew out left-to-right (mirrored glyphs)."""
-    words = HEBREW_WORD_RE.findall(text)
-    starts = sum(w[0] in HEBREW_FINALS for w in words)
-    ends = sum(w[-1] in HEBREW_FINALS for w in words)
-    if starts == ends == 0:
-        return True  # no final letters - direction inconclusive, trust the env
-    return starts >= ends
-
-
 def c10_bidi(ctx: ValidationContext) -> CheckResult:
     has_env = "\\texthebrew" in ctx.tex or "\\begin{hebrew}" in ctx.tex
-    hebrew = bool(HEBREW_RE.search(ctx.full_text))
+    hebrew = contains_hebrew(ctx.full_text)
     latin = bool(LATIN_RE.search(ctx.full_text))
-    rtl_ok = _rtl_applied(ctx.full_text) if hebrew else False
+    rtl_ok = rtl_applied(ctx.full_text) if hebrew else False
     ok = has_env and hebrew and latin and rtl_ok
     detail = (
         f"hebrew env={has_env}, hebrew text={hebrew}, latin text={latin}, "
