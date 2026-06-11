@@ -1,11 +1,11 @@
-# CI quality gates (TASKS.md 0.8, issue #8; PRD §6/§7, §9).
+# CI quality gates (docs/TODO.md T6.3; PRD §2 G4/G5, §4.3).
 #
 # Established EARLY so every push and pull request runs the full gate stack
 # before feature work lands. The steps run in order and the build fails on the
 # first failure: a cheap gate (lint/format) guards an expensive one (tests).
 #
-# Forward-compatible gates: the 150-line check (task 0.10) and the leak scan
-# (task 0.11) are wired now but skip cleanly until their tooling lands, so the
+# Forward-compatible gates: the 150-line check (TODO.md T6.4) and the secret
+# scan are wired now but skip cleanly until their tooling lands, so the
 # scaffold pipeline is GREEN today and each gate activates automatically once
 # its script/tool is committed — no edit to this file required.
 name: CI
@@ -41,25 +41,26 @@ jobs:
         run: uv run mypy
 
       # Coverage threshold is config-driven: the ≥85% gate lives in
-      # [tool.coverage.report].fail_under in pyproject.toml (task 0.9), so this
-      # step carries no hard-coded number that could diverge from config.
+      # [tool.coverage.report].fail_under in pyproject.toml (TODO.md T1.3), so
+      # this step carries no hard-coded number that could diverge from config.
       - name: Tests + coverage (pytest, fail under 85%)
         run: uv run pytest --cov --cov-report=term-missing
 
-      # Task 0.10 drops in scripts/check_line_limit.py; until then this skips.
+      # TODO.md T6.4 drops in scripts/check_line_limit.py; until then this skips.
       - name: 150-line file check
         run: |
           if [ -f scripts/check_line_limit.py ]; then
             uv run python scripts/check_line_limit.py
           else
-            echo "line-limit check pending task 0.10 (scripts/check_line_limit.py absent)"
+            echo "line-limit check pending TODO.md T6.4 (scripts/check_line_limit.py absent)"
           fi
 
-      # Task 0.11 wires the real secret scan; until then this skips.
+      # A committed scripts/secret_scan.py wires the real secret scan; until
+      # then this skips (see PRD §4.3: secrets via env only, never committed).
       - name: Secret scan
         run: |
           if [ -f scripts/secret_scan.py ]; then
             uv run python scripts/secret_scan.py
           else
-            echo "secret scan pending task 0.11 (scanner absent)"
+            echo "secret scan pending (scripts/secret_scan.py absent)"
           fi
