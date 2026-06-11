@@ -80,6 +80,14 @@ class Config:
         return os.environ.get("AGENTSCRIBE_ENGINEER_MODEL") or str(self._setup["engineer_model"])
 
     @property
+    def worker_max_tokens(self) -> int:
+        return int(self._setup["worker_max_tokens"])
+
+    @property
+    def engineer_max_tokens(self) -> int:
+        return int(self._setup["engineer_max_tokens"])
+
+    @property
     def human_in_the_loop(self) -> bool:
         return bool(self._setup["human_in_the_loop"])
 

@@ -11,6 +11,8 @@
   "llm_provider": "anthropic",
   "worker_model": "anthropic/claude-haiku-4-5",
   "engineer_model": "anthropic/claude-sonnet-4-6",
+  "worker_max_tokens": 16000,
+  "engineer_max_tokens": 32000,
   "human_in_the_loop": false,
   "results_dir": "results",
   "validator": {

@@ -19,6 +19,8 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
     """Create researcher, writer, editor and latex_engineer agents."""
     worker = config.worker_model
     engineer = config.engineer_model
+    worker_max = config.worker_max_tokens
+    engineer_max = config.engineer_max_tokens
     researcher = Agent(
         role="Research Analyst",
         goal="Find accurate, current facts and credible sources on {topic}.",
@@ -29,6 +31,7 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
         ),
         tools=[search_tool],
         llm=worker,
+        max_tokens=worker_max,
         verbose=False,
     )
     writer = Agent(
@@ -40,6 +43,7 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
             "researcher's sources inline as [@cite_key]."
         ),
         llm=worker,
+        max_tokens=worker_max,
         verbose=False,
     )
     editor = Agent(
@@ -55,6 +59,7 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
             "section, and at least two inline citations [@key]."
         ),
         llm=worker,
+        max_tokens=worker_max,
         verbose=False,
     )
     latex_engineer = Agent(
@@ -69,6 +74,7 @@ def build_agents(config: Config, search_tool: Any) -> AgentMap:
             "strict structured format - nothing may be lost in conversion."
         ),
         llm=engineer,
+        max_tokens=engineer_max,
         verbose=False,
     )
     return {

@@ -19,6 +19,7 @@ from agentscribe.services.crew.search_tool import build_search_tool
 from agentscribe.services.crew.tasks import build_tasks
 from agentscribe.shared.config import Config
 from agentscribe.shared.gatekeeper import ApiGatekeeper
+from agentscribe.shared.llm_metering import register_llm_metering
 from agentscribe.shared.logging_setup import get_logger
 
 # Receives the edited draft text; returns True to continue, False to abort.
@@ -70,6 +71,7 @@ class CrewPipeline:
         if not topic or not topic.strip():
             raise ValueError("topic must be a non-empty string")  # CP-2: before any API call
         crew, parts = self._build_crew()
+        register_llm_metering(self._gatekeeper)  # per-model cost records (R8)
         self._arm_stage_timers(parts["tasks"])
         self._log.info("crew_kickoff", topic=topic)
         output = crew.kickoff(inputs={"topic": topic.strip()})

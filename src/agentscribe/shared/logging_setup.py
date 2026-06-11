@@ -16,7 +16,9 @@ from typing import Any, TextIO
 import structlog
 
 REDACTED = "***REDACTED***"
-_SECRET_KEY_PATTERN = re.compile(r"(api[-_]?key|token|secret|authorization|password)", re.I)
+_SECRET_KEY_PATTERN = re.compile(
+    r"(api[-_]?key|secret|authorization|password|(^|[-_])token$)", re.I
+)
 
 
 def _looks_secret(key: str, extra_keys: list[str]) -> bool:
