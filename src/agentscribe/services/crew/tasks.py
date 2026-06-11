@@ -19,9 +19,11 @@ def build_tasks(agents: AgentMap, *, language: str, target_pages: int) -> TaskMa
     """Create the four chained tasks; topic is injected via kickoff inputs."""
     research = Task(
         description=(
-            "Research the topic: {topic}. Use the web_search tool to gather "
-            "accurate facts and 4-6 credible sources. For every source record "
-            "title, url, and a short cite_key (e.g. author2024keyword)."
+            "Research the topic: {topic}. You MUST call the web_search tool at "
+            "least 3 times with different queries about {topic} - never answer "
+            "from memory alone. Gather accurate facts and 4-6 credible sources; "
+            "for every source record the real title, url, and a short cite_key "
+            "(e.g. author2024keyword). Every fact must concern {topic}."
         ),
         expected_output=(
             "A structured fact sheet: bullet-point findings grouped by theme, "
@@ -31,10 +33,12 @@ def build_tasks(agents: AgentMap, *, language: str, target_pages: int) -> TaskMa
     )
     write = Task(
         description=(
-            f"Write a structured article in {language} (about {target_pages} "
-            "pages, 6-9 chapters) on {topic} based strictly on the research "
-            "context. Use Markdown: ## chapter headings, paragraphs, and "
-            "inline citations [@cite_key] referencing the researcher's sources."
+            f"Write a structured article in {language} of about {target_pages} "
+            f"pages ({target_pages * 450} words minimum, 6-9 chapters) strictly "
+            "about {topic}, based on the research context. Each chapter needs "
+            "3-5 substantial paragraphs. Use Markdown: ## chapter headings, "
+            "paragraphs, and inline citations [@cite_key] referencing the "
+            "researcher's sources. Stay on the topic {topic} throughout."
         ),
         expected_output=(
             "A complete multi-chapter Markdown draft with inline [@cite_key] "
