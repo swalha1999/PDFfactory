@@ -1,0 +1,12 @@
+{
+  "task_id": "T0.4+",
+  "title": "Align doc set with lecture requirements (issue #3)",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "prompt": "solve issue number 3,make it pr,review it and if everything is ok merge it,do not forget about adding the task log in .building_tasks_logs",
+  "tokens": {
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

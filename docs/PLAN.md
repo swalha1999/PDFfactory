@@ -1,7 +1,8 @@
 # PLAN — AgentScribe Architecture & Technical Design
 
 **Companion to:** [`PRD.md`](PRD.md) · [`TODO.md`](TODO.md)
-**Version:** 1.00 · **Last updated:** 2026-06-03 · **Status:** Draft
+**Authors:** Mohammed Abad & Partner (two-person submission)
+**Version:** 1.01 · **Last updated:** 2026-06-11 · **Status:** Draft
 
 This document describes the architecture (C4 model), key design decisions (ADRs), data schemas, and the SDK/interface contracts for AgentScribe.
 
@@ -200,7 +201,9 @@ class ApiGatekeeper:
   "version": "1.00",
   "language": "en",
   "bidi_chapter_language": "he",
-  "target_pages": 15,
+  "target_pages": 15,  
+  "max_pages": 50,
+  "byo_source_path": null,
   "compiler": "lualatex",
   "compile_passes": 4,
   "document_class": "article",
@@ -227,8 +230,9 @@ class ApiGatekeeper:
 
 ### 6.4 Cover-sheet metadata (drives the LaTeX cover page)
 ```json
-{ "title": "<topic>", "author": "Mohammed Abad", "date": "2026-06-03",
-  "course": "Mass Production of AI Agents", "lecturer": "Dr. Yoram Segal" }
+{ "title": "<topic>", "authors": ["Mohammed Abad", "Partner Name"],
+  "date": "2026-06-03", "course": "Mass Production of AI Agents",
+  "lecturer": "Dr. Yoram Segal" }
 ```
 
 ---
@@ -249,7 +253,7 @@ agentscribe/
 ├── tests/  (unit/  integration/  conftest.py)
 ├── docs/   (PRD.md, PLAN.md, TODO.md, PRD_crew_pipeline.md, PRD_latex_compiler.md, prompt_book.md)
 ├── config/ (setup.json, rate_limits.json, logging_config.json)
-├── templates/ (latex/*.tex.j2, references.bib)
+├── latex_project/  (self-contained LaTeX sub-project: templates, .bib, generated .tex)
 ├── results/   (per-run artifacts — git-ignored)
 ├── assets/    (screenshots, diagrams)
 ├── notebooks/ (results_analysis.ipynb)
@@ -257,6 +261,8 @@ agentscribe/
 ```
 
 > Note: every source file stays ≤ 150 LOC; split per the guidelines when a module grows (e.g., `templates.py` → `cover.py` + `headers.py` if needed).
+>
+> The `latex_project/` folder is a **self-contained LaTeX sub-project** (templates, `.bib`, generated `.tex`), as required by the lecture. It can be compiled independently once populated by the pipeline.
 
 ---
 
@@ -264,3 +270,11 @@ agentscribe/
 - **I/O-bound** (LLM/search calls): threadpool behind the gatekeeper; thread-safe queue.
 - **CPU-bound** (figure rendering): multiprocessing if multiple charts (FR-15).
 - **Observability:** structured logging of every gatekeeper call (service, latency, tokens), compiler logs retained per run, and a Spec-Sheet-style cost report (tokens in/out, USD, per model).
+
+---
+
+## 9. README Requirements (lecture mandate)
+- Architecture diagram (system overview).
+- CrewAI agent flow diagram (researcher → writer → editor → LaTeX engineer).
+- OOP class diagram (bonus credit).
+- Install, usage, config, and contribution sections (per guidelines §2.1).

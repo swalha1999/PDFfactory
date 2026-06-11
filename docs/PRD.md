@@ -2,6 +2,7 @@
 
 **Document type:** Product Requirements Document (PRD)
 **Project codename:** AgentScribe
+**Authors:** Mohammed Abad & Partner (two-person submission)
 
 
 > Companion documents: [`PLAN.md`](PLAN.md) (architecture) · [`TODO.md`](TODO.md) (tasks) · [`AI_STACK.md`](AI_STACK.md) (AI library choices & rationale).
@@ -15,7 +16,15 @@
 ### 1.1 Project goal
 AgentScribe is a **CrewAI multi-agent pipeline** that takes a single topic string and autonomously produces a **polished, compilable PDF article/book** through a LaTeX toolchain. A team of cooperating agents (researcher → writer → editor → LaTeX engineer) drafts the content in Markdown, then converts and compiles it to a typeset PDF complete with cover page, table of contents, chapters, figures, a Python-generated chart, a table, a "fancy" mathematical formula, a Hebrew–English bidirectional (BiDi) chapter, and a linked bibliography.
 
-This is the deliverable for **Exercise 03**. Per the assignment, grading is **technical and on the "envelope"** — that hyperlinks resolve, citations exist and link back, BiDi rendering is correct, tables do not overflow the page margin, and formulas render as proper math (not flat text) — **not** on factual correctness of the generated prose.
+This is a **two-person** deliverable for **Exercise 03**. Per the assignment, grading is **technical and on the "envelope"** — that hyperlinks resolve, citations exist and link back, BiDi rendering is correct, tables do not overflow the page margin, and formulas render as proper math (not flat text) — **not** on factual correctness of the generated prose.
+
+> **Lecture clarifications (grading strategy):**
+> - **Page count:** the lecturer allows up to **30 pages (Hebrew) / 50 pages (English)**; the ~15-page floor in C1 is the minimum, not a cap.
+> - **Language & grading:** a fully-Hebrew document is graded **higher** than an English one. Our strategic choice: produce an **English document with at least one Hebrew–English BiDi chapter** (the C10 floor), with the option to expand Hebrew coverage for bonus credit.
+> - **BiDi requirement:** Hebrew is not required for the entire document — the minimum is at least one **Hebrew↔English BiDi chapter** within an otherwise English document.
+> - **Bring-your-own-source (BYO):** students may use an existing paper/article as the content source; if so, the sources must be included for reproducibility.
+> - **LaTeX sub-project:** the LaTeX build must live in a self-contained sub-project folder.
+> - **README requirements:** README must show architecture diagrams and the CrewAI agent flow; an OOP class diagram is a bonus.
 
 ### 1.2 User problem
 Producing a correctly typeset technical document is slow and error-prone: authors juggle research, prose, LaTeX syntax, BiDi typesetting, multi-pass bibliography compilation, and figure generation. Manually orchestrating an LLM for each step ("write a prompt in ChatGPT") is **not a repeatable system** — it works once and breaks at scale. AgentScribe turns that one-off prompt into a deterministic, observable **document-production pipeline** that can be re-run for any topic at any workplace.
@@ -45,7 +54,7 @@ The 2026 agent ecosystem (LangChain, LangGraph, CrewAI) is moving from PoC to **
 ### 2.2 Acceptance criteria (Definition of Done for the product)
 The project is **accepted** when all of the following hold:
 1. `uv run agentscribe --topic "<any topic>"` produces `results/<run-id>/output.pdf`.
-2. The PDF contains: cover sheet (topic, author, date, course, lecturer), table of contents, chapter division, page headers/footers, ≥1 image, ≥1 Python-generated graph, ≥1 table, ≥1 math formula rendered as math, ≥1 Hebrew–English BiDi chapter, and a bibliography with **clickable** citations that jump to their reference entries.
+2. The PDF contains: cover sheet (topic, **both authors**, date, course, lecturer), table of contents, chapter division, page headers/footers, ≥1 image, ≥1 Python-generated graph, ≥1 table, ≥1 math formula rendered as math, ≥1 Hebrew–English BiDi chapter, and a bibliography with **clickable** citations that jump to their reference entries.
 3. A validation report confirms the **technical envelope**: links resolve, citations link back, BiDi correct, no table overflows the text width, formulas are not flat text.
 4. `ruff check` → 0 violations; `uv run pytest --cov` → ≥ 85%.
 5. `docs/`, `README.md`, `.env-example`, config files, and a prompt book are present.
@@ -55,7 +64,7 @@ The project is **accepted** when all of the following hold:
 ## 3. Functional Requirements
 
 ### 3.1 Core features (must-have)
-- **FR-1 — Topic intake.** Accept a topic string (CLI flag / config) plus optional language and length parameters. Validate non-empty input.
+- **FR-1 — Topic intake.** Accept a topic string (CLI flag / config) plus optional language, length (15–50 pages), and BYO-source path parameters. Validate non-empty input.
 - **FR-2 — Research agent.** Gather facts and sources for the topic via a web-search tool routed through the API gatekeeper. Output: structured fact + source list.
 - **FR-3 — Writer agent.** Transform research into a structured, multi-chapter Markdown draft (works from context, no search tool).
 - **FR-4 — Editor agent.** Review for clarity/structure without changing meaning; ensure the required content elements (table, formula, figure placeholders, BiDi section, citations) are present.
@@ -95,7 +104,7 @@ The project is **accepted** when all of the following hold:
 ### 4.1 Content envelope (the graded checklist)
 | ID | Requirement | How verified |
 |----|-------------|--------------|
-| C1 | ~15 pages of content | Page count of PDF |
+| C1 | ~15–50 pages of content (15 min; up to 30 Hebrew / 50 English) | Page count of PDF |
 | C2 | Cover sheet: topic, author, date, course, lecturer | Visual / text extract |
 | C3 | Table of contents | `\tableofcontents` rendered with page links |
 | C4 | Chapter/section division | Heading structure present |
@@ -104,7 +113,7 @@ The project is **accepted** when all of the following hold:
 | C7 | ≥1 Python-generated graph | matplotlib script → image embedded |
 | C8 | ≥1 table | `tabular`/`booktabs`, no overflow |
 | C9 | ≥1 math formula as math | math environment, not flat text |
-| C10 | Hebrew–English BiDi chapter | RTL↔LTR transitions render correctly |
+| C10 | ≥1 Hebrew–English BiDi chapter (full-Hebrew doc graded higher) | RTL↔LTR transitions render correctly |
 | C11 | Bibliography with linked citations | `\cite` → reference, clickable |
 
 ### 4.2 Quality attributes (ISO/IEC 25010)
@@ -123,16 +132,20 @@ The project is **accepted** when all of the following hold:
 - **TDD**, coverage ≥ 85%, **0 Ruff** violations, files ≤ 150 LOC.
 - **`uv` only** (no pip/venv); `pyproject.toml` + `uv.lock` committed.
 - `.env-example` committed; `.env`, `*.key`, `*.pem` git-ignored.
+- **LaTeX sub-project:** the LaTeX build (templates, `.bib`, generated `.tex`) lives in a self-contained `latex_project/` folder.
+- **README:** must include architecture diagrams and the CrewAI agent flow; an OOP class diagram earns bonus credit.
 
 ---
 
 ## 5. Assumptions, Dependencies, Constraints, Out-of-Scope
 
 ### 5.1 Assumptions
+- This is a **two-person** submission; both authors are listed on the cover sheet.
 - An LLM provider API key (e.g., OpenAI/Anthropic) and a web-search tool key are available via env vars.
 - A LaTeX distribution (MiKTeX) with LuaLaTeX + biber is installed and on `PATH`.
 - A sandbox (WSL or Windows Sandbox) is available to execute generated Python.
 - Evaluator judges the **envelope**, not prose accuracy.
+- Students may optionally provide an existing paper as a content source (**BYO-source path**); if used, the original sources must be included for reproducibility.
 
 ### 5.2 Dependencies
 - **External services:** LLM provider API; web-search API (e.g., Serper) — both via the gatekeeper.
