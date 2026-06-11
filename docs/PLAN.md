@@ -1,7 +1,7 @@
 # PLAN — AgentScribe Architecture & Technical Design
 
 **Companion to:** [`PRD.md`](PRD.md) · [`TODO.md`](TODO.md)
-**Authors:** Mohammed Abad & Partner (two-person submission)
+**Authors:** Muhammad Swalha & Mohammed Abad (two-person submission)
 **Version:** 1.01 · **Last updated:** 2026-06-11 · **Status:** Draft
 
 This document describes the architecture (C4 model), key design decisions (ADRs), data schemas, and the SDK/interface contracts for AgentScribe.
@@ -230,7 +230,7 @@ class ApiGatekeeper:
 
 ### 6.4 Cover-sheet metadata (drives the LaTeX cover page)
 ```json
-{ "title": "<topic>", "authors": ["Mohammed Abad", "Partner Name"],
+{ "title": "<topic>", "authors": ["Muhammad Swalha", "Mohammed Abad"],
   "date": "2026-06-03", "course": "Mass Production of AI Agents",
   "lecturer": "Dr. Yoram Segal" }
 ```

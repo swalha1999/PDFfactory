@@ -32,7 +32,7 @@
     "allowed_imports": ["matplotlib", "numpy", "math", "random"]
   },
   "cover": {
-    "author": "Mohammed Abad",
+    "author": "Muhammad Swalha and Mohammed Abad",
     "course": "Mass Production of AI Agents",
     "lecturer": "Dr. Yoram Segal"
   }

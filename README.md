@@ -152,7 +152,7 @@ is missing.
 
 ## License & credits
 
-MIT License. Built by **Mohammed Abad** for *Mass Production of AI Agents*
+MIT License. Built by **Muhammad Swalha** and **Mohammed Abad** for *Mass Production of AI Agents*
 (Dr. Yoram Segal). Powered by [CrewAI](https://docs.crewai.com),
 [matplotlib](https://matplotlib.org), [pypdf](https://pypdf.readthedocs.io),
 [pdfplumber](https://github.com/jsvine/pdfplumber),

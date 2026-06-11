@@ -2,7 +2,7 @@
 
 **Document type:** Product Requirements Document (PRD)
 **Project codename:** AgentScribe
-**Authors:** Mohammed Abad & Partner (two-person submission)
+**Authors:** Muhammad Swalha & Mohammed Abad (two-person submission)
 
 
 > Companion documents: [`PLAN.md`](PLAN.md) (architecture) · [`TODO.md`](TODO.md) (tasks) · [`AI_STACK.md`](AI_STACK.md) (AI library choices & rationale).

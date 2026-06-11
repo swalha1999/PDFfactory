@@ -1,7 +1,7 @@
 # TODO — AgentScribe Task Board
 
 **Companion to:** [`PRD.md`](PRD.md) · [`PLAN.md`](PLAN.md)
-**Authors:** Mohammed Abad & Partner (two-person submission)
+**Authors:** Muhammad Swalha & Mohammed Abad (two-person submission)
 **Version:** 1.01 · **Last updated:** 2026-06-11
 
 **Status legend:** `[ ]` not started · `[~]` in progress · `[x]` done
