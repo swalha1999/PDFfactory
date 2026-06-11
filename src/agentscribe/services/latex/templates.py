@@ -22,6 +22,8 @@ PREAMBLE_TEMPLATE = r"""\documentclass[{font_size}]{{{document_class}}}
 \setmainlanguage{{english}}
 \setotherlanguage{{hebrew}}
 \newfontfamily\hebrewfont[Script=Hebrew]{{{hebrew_font}}}
+\usepackage{{microtype}}
+\emergencystretch=3em
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{{hyperref}}
 
 \pagestyle{{fancy}}

@@ -18,7 +18,8 @@ INCLUDEGRAPHICS_RE = re.compile(r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}")
 SECTION_RE = re.compile(r"\\(?:section|chapter)\{")
 MATH_ENV_RE = re.compile(r"\\begin\{(?:equation|align|gather|multline)\*?\}")
 CITE_RE = re.compile(r"\\cite\{([^}]+)\}")
-OVERFULL_RE = re.compile(r"Overfull \\hbox \((\d+(?:\.\d+)?)pt too wide")
+OVERFULL_RE = re.compile(r"Overfull \\hbox \((\d+(?:\.\d+)?)pt too wide(?:[^\n]*?at lines? (\d+))?")
+TABLE_ENV_RE = re.compile(r"\\(begin|end)\{(?:table|tabularx|tabular)\}")
 UNDEFINED_CITE_RE = re.compile(r"Citation `([^']+)' .*undefined", re.I)
 FLAT_FORMULA_RE = re.compile(r"\b[A-Za-z]\s*=\s*[A-Za-z0-9][A-Za-z0-9^_+\-*/]{2,}")
 
@@ -78,16 +79,34 @@ def c7_python_graph(ctx: ValidationContext, chart_name: str) -> CheckResult:
     return CheckResult(False, f"{chart_name} not embedded")
 
 
+def _table_line_ranges(tex: str) -> list[tuple[int, int]]:
+    """1-based line ranges of table/tabular(x) environments in main.tex."""
+    ranges, stack = [], []
+    for lineno, line in enumerate(tex.splitlines(), start=1):
+        for match in TABLE_ENV_RE.finditer(line):
+            if match.group(1) == "begin":
+                stack.append(lineno)
+            elif stack:
+                ranges.append((stack.pop(), lineno))
+    return ranges
+
+
 def c8_table(ctx: ValidationContext, threshold_pt: float) -> CheckResult:
+    """Overfull boxes count against C8 only when inside a table env (R6)."""
     has_table = "\\begin{tabularx}" in ctx.tex or "\\begin{tabular}" in ctx.tex
-    log_source = ctx.final_log or ctx.logs
-    overflows = [float(pt) for pt in OVERFULL_RE.findall(log_source) if float(pt) > threshold_pt]
     if not has_table:
         return CheckResult(False, "no table environment found")
+    ranges = _table_line_ranges(ctx.tex)
+    overflows = []
+    for pt, line in OVERFULL_RE.findall(ctx.final_log or ctx.logs):
+        if float(pt) <= threshold_pt or not line:
+            continue
+        if any(start <= int(line) <= end for start, end in ranges):
+            overflows.append(f"{float(pt):.1f}pt at tex line {line}")
     if overflows:
-        detail = f"overfull hbox up to {max(overflows):.1f}pt (> {threshold_pt}pt)"
+        detail = f"table overfull hbox: {overflows} (> {threshold_pt}pt)"
         return CheckResult(False, detail, remediation="table_overflow")
-    return CheckResult(True, "table present; no overfull box beyond threshold")
+    return CheckResult(True, "table present; no table overfull box beyond threshold")
 
 
 def c9_math(ctx: ValidationContext) -> CheckResult:
