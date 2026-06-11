@@ -1,0 +1,29 @@
+{
+  "run_id": "20260612T005956-d7bddc",
+  "by_model": [
+    {
+      "model": "anthropic/claude-sonnet-4-6",
+      "calls": 9,
+      "input_tokens": 46173,
+      "output_tokens": 36319,
+      "usd": 0.683304
+    }
+  ],
+  "search_calls": 8,
+  "total_usd": 0.683304,
+  "duration_s": 811.8,
+  "stage_timings_s": {
+    "research": 70.905,
+    "write": 219.43,
+    "edit": 249.813,
+    "latex": 0.337,
+    "compile": 2.457,
+    "validate": 0.591
+  },
+  "unknown_price_models": [],
+  "projected_usd": {
+    "per_10_runs": 6.833,
+    "per_100_runs": 68.3304,
+    "per_1000_runs": 683.304
+  }
+}
