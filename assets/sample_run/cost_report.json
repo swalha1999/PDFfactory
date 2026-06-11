@@ -1,0 +1,36 @@
+{
+  "run_id": "20260611T211111-ff9f36",
+  "by_model": [
+    {
+      "model": "anthropic/claude-haiku-4-5",
+      "calls": 10,
+      "input_tokens": 26278,
+      "output_tokens": 13673,
+      "usd": 0.094643
+    },
+    {
+      "model": "anthropic/claude-sonnet-4-6",
+      "calls": 1,
+      "input_tokens": 8101,
+      "output_tokens": 7465,
+      "usd": 0.136278
+    }
+  ],
+  "search_calls": 7,
+  "total_usd": 0.230921,
+  "duration_s": 309.8,
+  "stage_timings_s": {
+    "research": 38.497,
+    "write": 58.044,
+    "edit": 64.733,
+    "latex": 0.371,
+    "compile": 3.722,
+    "validate": 0.36
+  },
+  "unknown_price_models": [],
+  "projected_usd": {
+    "per_10_runs": 2.3092,
+    "per_100_runs": 23.0921,
+    "per_1000_runs": 230.921
+  }
+}

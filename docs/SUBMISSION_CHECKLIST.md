@@ -40,7 +40,7 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 - [x] **Systematic experiments** — `notebooks/results_analysis.ipynb` (executed): compile-pass sensitivity (real LaTeX experiment), cost vs pages × model pairing, figure determinism.
 - [x] **Sensitivity analysis with charts** — same notebook, three executed charts.
 - [x] **Token cost analysis + optimization** — README cost table + per-run `cost_report.md` with at-scale projection; optimization notes documented.
-- [ ] **Screenshots of CLI states / sample PDF pages** — pending the live-API sample run (issue #39; requires `ANTHROPIC_API_KEY` + `SERPER_API_KEY`).
+- [x] **Screenshots of CLI states / sample PDF pages** — [`assets/sample_run/`](../assets/sample_run/): cover, TOC, chart page, Hebrew BiDi chapter, references (rendered from the live run's `output.pdf`) + full CLI capture.
 
 ## 17.6 Extensibility and Standards
 
@@ -51,9 +51,12 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 - [x] **ISO/IEC 25010 mapping** — PRD §4.2.
 - [x] **Clean git history, license, attribution** — small per-milestone commits closing issues; MIT license + credits in README.
 
-## Outstanding before final submission
+## Live sample run (issue #39) — done
 
-1. **Live sample run** (issue #39): set keys in `.env`, run
-   `uv run agentscribe --topic "<topic>"`, then commit `output.pdf`,
-   `envelope_report.md`, `cost_report.md` and CLI screenshots under `assets/`.
-2. Re-run this checklist after that run and tick 17.5's screenshot item.
+Run `20260611T211111-ff9f36`, topic *"Agentic AI in Production"*:
+**status success, 15 pages, all 11 envelope checks pass**, cost **$0.2309**
+(34,379 in / 21,138 out tokens). Artifacts committed under
+[`assets/sample_run/`](../assets/sample_run/): `output.pdf`, envelope and
+cost reports, draft, CLI capture, and page screenshots.
+
+Every checklist item is satisfied.
