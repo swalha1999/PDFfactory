@@ -25,7 +25,9 @@ def ctx(**overrides: object) -> ValidationContext:
         pdf_path=Path("x.pdf"),
         build_dir=Path("."),
         page_count=15,
-        page_texts=["Contents Title Author", "body שלום and english text"],
+        # extraction is visual-order: correctly-rendered RTL Hebrew comes out
+        # reversed, so final letters (here ם of שלום) lead the word
+        page_texts=["Contents Title Author", "body םולש and english text"],
         internal_link_count=12,
         tex=GOOD_TEX,
         logs="Package: fancyhdr",
@@ -97,6 +99,17 @@ def test_ev5_missing_hebrew_fails_bidi() -> None:
     assert checks.c10_bidi(ctx()).ok
     assert not checks.c10_bidi(ctx(page_texts=["english only"])).ok
     assert not checks.c10_bidi(ctx(tex="no hebrew env")).ok
+
+
+def test_ev5_reversed_hebrew_fails_bidi() -> None:
+    # final letters at word ENDS in extracted text = engine laid Hebrew out
+    # LTR (mirrored render, the LuaLaTeX/luabidi failure mode)
+    reversed_render = ctx(page_texts=["Contents", "text שלום עולם here"])
+    result = checks.c10_bidi(reversed_render)
+    assert not result.ok
+    assert "REVERSED" in result.detail
+    # words without final letters are inconclusive - env decides
+    assert checks.c10_bidi(ctx(page_texts=["Contents", "text עברית here"])).ok
 
 
 def test_ev2_undefined_citation_maps_to_missing_pass() -> None:

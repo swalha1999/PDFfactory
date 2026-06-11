@@ -119,8 +119,12 @@ sequenceDiagram
 **Rationale:** Markdown is fast to generate and review; defer LaTeX fragility until content is final (per assignment §13.2).
 **Trade-offs:** Extra conversion step; mitigated by a deterministic converter + templates.
 
-### ADR-003 — LuaLaTeX as default compiler
-**Decision:** Default to LuaLaTeX; XeLaTeX selectable via config.
+### ADR-003 — XeLaTeX as default compiler *(amended 2026-06-11)*
+**Decision:** Default to XeLaTeX; LuaLaTeX selectable via config.
+**Amendment:** originally LuaLaTeX, but live runs showed BasicTeX's
+`luabidi` shim renders Hebrew mirrored (left-to-right); XeLaTeX's mature
+`bidi` package typesets it correctly, and the validator's C10 check now
+detects reversed runs via final-letter positions.
 **Rationale:** Best Hebrew/BiDi support for the required bilingual chapter; both allowed by the assignment.
 **Trade-offs:** Slower than pdfLaTeX; acceptable for ~15 pages.
 

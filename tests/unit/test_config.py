@@ -21,7 +21,7 @@ def test_setup_getters(config: Config) -> None:
     assert config.language == "en"
     assert config.bidi_language == "he"
     assert config.target_pages == 15
-    assert config.compiler == constants.Compiler.LUALATEX
+    assert config.compiler == constants.Compiler.XELATEX
     assert config.compile_passes == 4
     assert config.document_class == "article"
     assert config.human_in_the_loop is False

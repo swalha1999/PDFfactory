@@ -87,7 +87,10 @@ def convert_markdown_body(markdown: str) -> str:
             in_list = None
             level = len(stripped) - len(stripped.lstrip("#"))
             command = {1: "section", 2: "section", 3: "subsection"}.get(level, "subsubsection")
-            out.append(rf"\{command}{{{convert_inline(stripped.lstrip('#').strip())}}}")
+            heading = stripped.lstrip("#").strip()
+            # LaTeX numbers sections itself - drop LLM-written "7." / "Chapter 7:"
+            heading = re.sub(r"^(chapter\s+)?\d+(\.\d+)*[.):]?\s+", "", heading, flags=re.I)
+            out.append(rf"\{command}{{{convert_inline(heading)}}}")
         elif re.match(r"^\s*[-*]\s+", line):
             if in_list != "itemize":
                 _flush_list(out, in_list)

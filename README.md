@@ -23,9 +23,8 @@ Prerequisites:
 
 1. **Python 3.12+** managed by [`uv`](https://docs.astral.sh/uv/) (no pip/venv):
    `brew install uv` / `winget install astral-sh.uv`
-2. **A LaTeX distribution** with LuaLaTeX + bibtex:
-   - macOS: `brew install --cask basictex`, then `sudo tlmgr install luabidi`
-     (or without sudo: `tlmgr init-usertree && tlmgr --usermode install luabidi`)
+2. **A LaTeX distribution** with XeLaTeX + bibtex:
+   - macOS: `brew install --cask basictex` (includes XeLaTeX, polyglossia, bidi)
    - Windows: install [MiKTeX](https://miktex.org) (auto-installs missing packages)
 3. **API keys** (see [Configuration](#configuration)).
 
@@ -86,7 +85,7 @@ Secrets come **only** from the environment (`.env`, never committed):
 
 Operational policy lives in versioned `config/*.json` (all start at v1.00, checked at startup):
 
-- `setup.json` — language, target pages, compiler (`lualatex`/`xelatex`),
+- `setup.json` — language, target pages, compiler (`xelatex` default / `lualatex`),
   passes, bib backend, models, sandbox limits, validator thresholds, cover metadata.
 - `rate_limits.json` — per-service requests/minute+hour, concurrency,
   retries, overflow-queue depth (enforced by the API gatekeeper).
@@ -141,8 +140,11 @@ is missing.
 
 ## Troubleshooting
 
-- ``File `luabidi.sty' not found`` → `tlmgr --usermode install luabidi`
-  (after `tlmgr init-usertree`).
+- **Hebrew renders mirrored/reversed** → you are compiling with LuaLaTeX on a
+  distribution whose `luabidi` shim is broken; keep the default
+  `"compiler": "xelatex"` (the validator's C10 check catches this).
+- ``File `luabidi.sty' not found`` (LuaLaTeX only) → `tlmgr --usermode install
+  luabidi` (after `tlmgr init-usertree`).
 - **Hebrew font errors** → set `latex.hebrew_font` in `config/setup.json` to an
   installed Hebrew-capable font (macOS: `Arial Hebrew`; Windows: `David CLM` or `Arial`).
 - **`GatekeeperQueueFullError`** → over rate limits; raise the limits in

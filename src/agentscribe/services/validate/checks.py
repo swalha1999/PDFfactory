@@ -124,12 +124,33 @@ def c9_math(ctx: ValidationContext) -> CheckResult:
     return CheckResult(True, f"{envs} display-math environment(s)")
 
 
+HEBREW_FINALS = "ךםןףץ"
+HEBREW_WORD_RE = re.compile(r"[֐-׿]{2,}")
+
+
+def _rtl_applied(text: str) -> bool:
+    """PDF extraction is visual-order: with correct RTL, final letters land at
+    the *start* of extracted words; at the *end* means the engine laid the
+    Hebrew out left-to-right (mirrored glyphs)."""
+    words = HEBREW_WORD_RE.findall(text)
+    starts = sum(w[0] in HEBREW_FINALS for w in words)
+    ends = sum(w[-1] in HEBREW_FINALS for w in words)
+    if starts == ends == 0:
+        return True  # no final letters - direction inconclusive, trust the env
+    return starts >= ends
+
+
 def c10_bidi(ctx: ValidationContext) -> CheckResult:
     has_env = "\\texthebrew" in ctx.tex or "\\begin{hebrew}" in ctx.tex
     hebrew = bool(HEBREW_RE.search(ctx.full_text))
     latin = bool(LATIN_RE.search(ctx.full_text))
-    ok = has_env and hebrew and latin
-    return CheckResult(ok, f"hebrew env={has_env}, hebrew text={hebrew}, latin text={latin}")
+    rtl_ok = _rtl_applied(ctx.full_text) if hebrew else False
+    ok = has_env and hebrew and latin and rtl_ok
+    detail = (
+        f"hebrew env={has_env}, hebrew text={hebrew}, latin text={latin}, "
+        f"rtl direction={'ok' if rtl_ok else 'REVERSED - engine laid Hebrew out LTR'}"
+    )
+    return CheckResult(ok, detail)
 
 
 def c11_bibliography(ctx: ValidationContext) -> CheckResult:

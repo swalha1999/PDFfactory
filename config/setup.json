@@ -3,7 +3,7 @@
   "language": "en",
   "bidi_chapter_language": "he",
   "target_pages": 15,
-  "compiler": "lualatex",
+  "compiler": "xelatex",
   "compile_passes": 4,
   "bib_backend": "bibtex",
   "document_class": "article",

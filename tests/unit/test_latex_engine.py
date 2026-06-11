@@ -115,7 +115,7 @@ def test_compiler_pass_sequence_and_rename(monkeypatch: pytest.MonkeyPatch, tmp_
     monkeypatch.setattr(compiler_mod, "_run", fake_run)
     pdf, logs = compile_pdf(Config(), tmp_path)
     assert pdf.name == constants.OUTPUT_PDF_NAME and pdf.is_file()
-    assert len([c for c in calls if "lualatex" in c]) == 4
+    assert len([c for c in calls if "xelatex" in c]) == 4
     assert any("bibtex" in c for c in calls)
     assert logs == ["pass1.log", "bibtex.log", "pass2.log", "pass3.log", "pass4.log"]
 

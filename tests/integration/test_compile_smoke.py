@@ -17,7 +17,7 @@ from agentscribe.services.latex.engine import LatexEngine
 from agentscribe.shared.config import Config
 
 needs_latex = pytest.mark.skipif(
-    shutil.which("lualatex") is None or shutil.which("bibtex") is None,
+    shutil.which("xelatex") is None or shutil.which("bibtex") is None,
     reason="LaTeX toolchain not installed",
 )
 
