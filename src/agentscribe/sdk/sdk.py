@@ -1,9 +1,8 @@
 """AgentScribeSDK - the single entry point for all business logic (#28, #30).
 
-The CLI (and any future GUI/REST shell) only calls this facade. The full
-pipeline is: crew -> latex build -> multi-pass compile -> envelope validate,
-with a bounded self-correction loop on validator failures (validator R10)
-and a cost report written even when the run fails (observability R5).
+The CLI (and any future GUI/REST shell) only calls this facade: crew ->
+latex build -> multi-pass compile -> validate, with a bounded
+self-correction loop (R10) and a cost report written even on failure (R5).
 """
 
 from __future__ import annotations
@@ -44,7 +43,6 @@ class AgentScribeSDK:
         config.validate_models()
         return cls(config, ApiGatekeeper(config))
 
-    # -- individual steps (PLAN §5 contract) ---------------------------------
     def generate_markdown(self, topic: str) -> tuple[MarkdownDraft, dict[str, int]]:
         return CrewPipeline(self.config, self.gatekeeper).run(topic)
 
@@ -57,7 +55,6 @@ class AgentScribeSDK:
     def validate(self, pdf_path: Path, run_dir: Path, title: str) -> EnvelopeReport:
         return validate_envelope(self.config, pdf_path, run_dir, title)
 
-    # -- full pipeline --------------------------------------------------------
     def generate_document(
         self,
         topic: str,
@@ -139,8 +136,7 @@ class AgentScribeSDK:
         while not report.all_pass and report.remediations and rounds < max_rounds:
             rounds += 1
             if report.remediations != ["missing_pass"]:
-                # flat_formula / table_overflow: rebuild deterministically
-                # (the engine re-injects compliant elements), then recompile.
+                # flat_formula / table_overflow: deterministic rebuild first
                 self._engine.build(draft, run_dir, date)
             pdf = compile_pdf(self.config, run_dir)[0]
             report = self.validate(pdf, run_dir, draft.title)
