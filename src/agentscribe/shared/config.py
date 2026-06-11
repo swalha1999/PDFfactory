@@ -95,6 +95,10 @@ class Config:
     def sandbox(self) -> dict[str, Any]:
         return dict(self._setup["sandbox"])
 
+    @property
+    def latex(self) -> dict[str, Any]:
+        return dict(self._setup["latex"])
+
     # -- rate_limits.json ---------------------------------------------------
     def service_limits(self, service: str) -> dict[str, int]:
         services = self._rate_limits["services"]

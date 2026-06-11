@@ -13,6 +13,11 @@
   "engineer_model": "anthropic/claude-sonnet-4-6",
   "human_in_the_loop": false,
   "results_dir": "results",
+  "latex": {
+    "hebrew_font": "Arial Hebrew",
+    "font_size": "12pt",
+    "margin_cm": 2.5
+  },
   "sandbox": {
     "backend": "subprocess_isolated",
     "timeout_s": 60,
