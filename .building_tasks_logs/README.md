@@ -10,8 +10,8 @@ visible per task — required by the lecturer's guidelines and our
 > We track the **task** (its prompt) and the **tokens** — not the model's responses.
 >
 > Note: this is **build-time** logging (how the project was *made*). It is separate
-> from the **runtime** LOG package (`packages/log`) that records what happens *inside*
-> a debate.
+> from the **runtime** cost/token report the pipeline emits per run (PRD FR-10,
+> `shared/cost.py`).
 
 ## File naming
 
@@ -20,7 +20,7 @@ NNN-short-slug.json
 ```
 - `NNN` = zero-padded sequence (`001`, `002`, …) in the order tasks were done.
 - `slug` = kebab-case summary (e.g. `001-scaffold-workspace.json`).
-- Map to `docs/TASKS.md` task IDs via the `task_id` field when applicable.
+- Map to `docs/TODO.md` task IDs via the `task_id` field when applicable.
 
 ## Schema
 
@@ -28,7 +28,7 @@ See `_template.json`. Fields:
 
 | Field | Meaning |
 |---|---|
-| `task_id` | TASKS.md id (e.g. `0.1`), or a label like `planning`/`docs`. |
+| `task_id` | TODO.md id (e.g. `T1.1`), or a label like `planning`/`docs`. |
 | `title` | Short human title of the task. |
 | `date` | `YYYY-MM-DD`. |
 | `model` | Model that did the work (e.g. `claude-opus-4-8`). |
@@ -40,10 +40,11 @@ See `_template.json`. Fields:
 This folder is our **extra** granular log. The lecturer's guidelines additionally
 require two things, which each task must also feed:
 
-1. **Prompt Book — `docs/PROMPTS.md`** (guideline §8.3): roll *significant* prompts
-   into the narrative prompt book (context, goal, output, lessons).
-2. **Token cost table** (guideline §11.1): add the task's token counts to the
-   cost-breakdown table (model · input · output · cost) — Epic 15 / `docs/PRD.md §10`.
+1. **Prompt Book — `docs/prompt_book.md`** (guidelines §8.3, TODO.md T7.2): roll
+   *significant* prompts into the narrative prompt book (context, goal, output,
+   lessons).
+2. **Token cost table** (guidelines §11.1, TODO.md T7.5): add the task's token
+   counts to the cost-breakdown table (model · input · output · cost).
 
 So per task: write the JSON here **and** update the Prompt Book + cost table.
 
