@@ -7,6 +7,7 @@ at a human checkpoint after the editor stage (FR-11).
 
 from __future__ import annotations
 
+import time
 from collections.abc import Callable
 from typing import Any
 
@@ -46,6 +47,7 @@ class CrewPipeline:
         self._gatekeeper = gatekeeper
         self._checkpoint = checkpoint
         self._log = get_logger(service="crew")
+        self.stage_timings: dict[str, float] = {}
 
     def _build_crew(self) -> tuple[Crew, dict[str, Any]]:
         search_tool = build_search_tool(self._gatekeeper)
@@ -68,6 +70,7 @@ class CrewPipeline:
         if not topic or not topic.strip():
             raise ValueError("topic must be a non-empty string")  # CP-2: before any API call
         crew, parts = self._build_crew()
+        self._arm_stage_timers(parts["tasks"])
         self._log.info("crew_kickoff", topic=topic)
         output = crew.kickoff(inputs={"topic": topic.strip()})
         draft = self._extract_draft(output)
@@ -80,6 +83,21 @@ class CrewPipeline:
         )
         self._maybe_checkpoint(parts["tasks"]["edit"])
         return draft, usage
+
+    def _arm_stage_timers(self, tasks: dict[str, Any]) -> None:
+        """Record per-task durations via CrewAI task callbacks (OB-5)."""
+        last = [time.perf_counter()]
+
+        def make_callback(stage: str) -> Callable[[Any], None]:
+            def callback(_output: Any) -> None:
+                now = time.perf_counter()
+                self.stage_timings[stage] = now - last[0]
+                last[0] = now
+
+            return callback
+
+        for name, stage in (("research", "research"), ("write", "write"), ("edit", "edit")):
+            tasks[name].callback = make_callback(stage)
 
     def _maybe_checkpoint(self, edit_task: Any) -> None:
         """Optional human-in-the-loop pause after the editor stage (FR-11)."""

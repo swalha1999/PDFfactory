@@ -103,6 +103,12 @@ class Config:
     def validator(self) -> dict[str, Any]:
         return dict(self._setup["validator"])
 
+    def override(self, key: str, value: Any) -> None:
+        """Runtime override of a setup value (CLI flags beat setup.json)."""
+        if key not in self._setup:
+            raise ConfigError(f"Unknown setup key: {key!r}")
+        self._setup[key] = value
+
     # -- rate_limits.json ---------------------------------------------------
     def service_limits(self, service: str) -> dict[str, int]:
         services = self._rate_limits["services"]
