@@ -12,12 +12,12 @@
     },
     "C3_toc": {
       "ok": true,
-      "detail": "TOC present; 64 internal links",
+      "detail": "TOC present; 52 internal links",
       "remediation": null
     },
     "C4_chapters": {
       "ok": true,
-      "detail": "12 sections detected",
+      "detail": "14 sections detected",
       "remediation": null
     },
     "C5_headers": {
@@ -52,7 +52,7 @@
     },
     "C11_bibliography": {
       "ok": true,
-      "detail": "19 cite keys resolved; internal links=64",
+      "detail": "20 cite keys resolved; internal links=52",
       "remediation": null
     }
   },

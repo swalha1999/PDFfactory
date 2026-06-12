@@ -1,29 +1,29 @@
 {
-  "run_id": "20260612T023109-f1f3a1",
+  "run_id": "20260612T093429-8c8fd9",
   "by_model": [
     {
       "model": "anthropic/claude-sonnet-4-6",
-      "calls": 13,
-      "input_tokens": 74775,
-      "output_tokens": 37943,
-      "usd": 0.79347
+      "calls": 8,
+      "input_tokens": 44723,
+      "output_tokens": 36625,
+      "usd": 0.683544
     }
   ],
-  "search_calls": 12,
-  "total_usd": 0.79347,
-  "duration_s": 858.4,
+  "search_calls": 7,
+  "total_usd": 0.683544,
+  "duration_s": 754.5,
   "stage_timings_s": {
-    "research": 133.185,
-    "write": 221.778,
-    "edit": 240.803,
-    "latex": 0.951,
-    "compile": 2.732,
-    "validate": 0.549
+    "research": 81.068,
+    "write": 207.191,
+    "edit": 234.869,
+    "latex": 1.18,
+    "compile": 2.779,
+    "validate": 0.544
   },
   "unknown_price_models": [],
   "projected_usd": {
-    "per_10_runs": 7.9347,
-    "per_100_runs": 79.347,
-    "per_1000_runs": 793.47
+    "per_10_runs": 6.8354,
+    "per_100_runs": 68.3544,
+    "per_1000_runs": 683.544
   }
 }

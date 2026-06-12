@@ -1,36 +1,36 @@
-[info     ] api_call                       attempt=1 latency_ms=903.0007920227945 model=None outcome=success queued_ms=0.003250082954764366 run_id=20260612T023109-f1f3a1 service=search started_at=1483863.970886458 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:10.321629Z
-[info     ] api_call                       attempt=1 latency_ms=974.9745419248939 model=None outcome=success queued_ms=0.01633400097489357 run_id=20260612T023109-f1f3a1 service=search started_at=1483864.87453575 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:11.297226Z
-[info     ] api_call                       attempt=1 latency_ms=1228.2080000732094 model=None outcome=success queued_ms=0.005749985575675964 run_id=20260612T023109-f1f3a1 service=search started_at=1483865.849884083 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:12.525779Z
-[info     ] crew_kickoff                   run_id=20260612T023109-f1f3a1 service=crew topic='AI-Driven Testing and Code Review: Quality Assurance in the Agentic Era' ts=2026-06-11T23:31:12.534721Z
-[info     ] api_call                       attempt=1 latency_ms=737.7463339362293 model=None outcome=success queued_ms=0.00537489540874958 run_id=20260612T023109-f1f3a1 service=search started_at=1483870.194075625 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:16.379544Z
-[info     ] api_call                       attempt=1 latency_ms=937.5283329281956 model=None outcome=success queued_ms=0.009207986295223236 run_id=20260612T023109-f1f3a1 service=search started_at=1483873.262765916 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:19.648039Z
-[info     ] api_call                       attempt=1 latency_ms=918.4540000278503 model=None outcome=success queued_ms=0.008667120710015297 run_id=20260612T023109-f1f3a1 service=search started_at=1483877.017431958 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:23.383592Z
-[info     ] api_call                       attempt=1 latency_ms=847.0626249909401 model=None outcome=success queued_ms=0.009124865755438805 run_id=20260612T023109-f1f3a1 service=search started_at=1483880.498574125 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:26.793335Z
-[info     ] api_call                       attempt=1 latency_ms=933.7490419857204 model=None outcome=success queued_ms=0.009249895811080933 run_id=20260612T023109-f1f3a1 service=search started_at=1483884.2670025 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:30.648469Z
-[info     ] api_call                       attempt=1 latency_ms=817.8555411286652 model=None outcome=success queued_ms=0.009250128641724586 run_id=20260612T023109-f1f3a1 service=search started_at=1483887.357717083 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:33.623252Z
-[info     ] api_call                       attempt=1 latency_ms=1594.7189170401543 model=None outcome=success queued_ms=0.009458046406507492 run_id=20260612T023109-f1f3a1 service=search started_at=1483890.603338875 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:31:37.645748Z
-[info     ] api_call                       attempt=1 latency_ms=941.5500001050532 model=None outcome=success queued_ms=29429.316666908562 run_id=20260612T023109-f1f3a1 service=search started_at=1483894.543975666 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:32:10.362430Z
-[info     ] api_call                       attempt=1 latency_ms=1013.7051250785589 model=None outcome=success queued_ms=0.010833842679858208 run_id=20260612T023109-f1f3a1 service=search started_at=1483926.923985375 tokens={'input': 0, 'output': 0} ts=2026-06-11T23:32:13.385272Z
-[info     ] crew_finished                  chapters=10 elements_ok=True input_tokens=74775 output_tokens=37943 run_id=20260612T023109-f1f3a1 service=crew total_tokens=112718 ts=2026-06-11T23:51:54.376330Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=371.5 run_id=20260612T023109-f1f3a1 script_hash=22af5db24f46 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:51:54.751772Z
-[info     ] chart_generated                attempt=1 from_spec=True run_id=20260612T023109-f1f3a1 service=figures ts=2026-06-11T23:51:54.751923Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=291.1 run_id=20260612T023109-f1f3a1 script_hash=ba3761b4e992 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:51:55.044035Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=280.1 run_id=20260612T023109-f1f3a1 script_hash=0a255810beab service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:51:55.325204Z
-[info     ] figures_done                   charts=3 degraded_primary=False run_id=20260612T023109-f1f3a1 service=figures ts=2026-06-11T23:51:55.325373Z
-2026-06-12 02:51:55 [info     ] latex_build_done               degraded_figure=False run_id=20260612T023109-f1f3a1 service=latex sources=20 tex=/Users/swalha/code/PDFfactory/results/20260612T023109-f1f3a1/main.tex
-[info     ] latex_pass                     exit_code=0 n=1 run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:56.004868Z
-[info     ] bib_pass                       backend=bibtex exit_code=0 run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:56.016693Z
-[info     ] latex_pass                     exit_code=0 n=2 run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:56.697298Z
-[info     ] latex_pass                     exit_code=0 n=3 run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:57.377952Z
-[info     ] latex_pass                     exit_code=0 n=4 run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:58.060170Z
-[info     ] compile_done                   passes=4 pdf=/Users/swalha/code/PDFfactory/results/20260612T023109-f1f3a1/output.pdf run_id=20260612T023109-f1f3a1 service=compiler ts=2026-06-11T23:51:58.060416Z
-[info     ] envelope_validated             all_pass=True failed=[] remediations=[] run_id=20260612T023109-f1f3a1 service=validator ts=2026-06-11T23:51:58.609648Z
-[info     ] cost_report_written            duration_s=858.4 run_id=20260612T023109-f1f3a1 service=cost total_usd=0.79347 ts=2026-06-11T23:51:58.610276Z
-[info     ] run_finished                   run_id=20260612T023109-f1f3a1 status=success total_usd=0.79347 ts=2026-06-11T23:51:58.610321Z
-run_id:  20260612T023109-f1f3a1
+[info     ] api_call                       attempt=1 latency_ms=834.4141670968384 model=None outcome=success queued_ms=0.003125052899122238 run_id=20260612T093429-8c8fd9 service=search started_at=1489111.748729 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:30.017937Z
+[info     ] api_call                       attempt=1 latency_ms=938.8685000594705 model=None outcome=success queued_ms=0.0077909789979457855 run_id=20260612T093429-8c8fd9 service=search started_at=1489112.583595416 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:30.957316Z
+[info     ] api_call                       attempt=1 latency_ms=968.8158330973238 model=None outcome=success queued_ms=0.01233280636370182 run_id=20260612T093429-8c8fd9 service=search started_at=1489113.523009583 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:31.926681Z
+[info     ] crew_kickoff                   run_id=20260612T093429-8c8fd9 service=crew topic='AI-Driven Testing and Code Review: Quality Assurance in the Agentic Era' ts=2026-06-12T06:34:31.935869Z
+[info     ] api_call                       attempt=1 latency_ms=995.2672079671174 model=None outcome=success queued_ms=0.0077909789979457855 run_id=20260612T093429-8c8fd9 service=search started_at=1489118.049452708 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:36.479533Z
+[info     ] api_call                       attempt=1 latency_ms=980.5394171271473 model=None outcome=success queued_ms=0.006709014996886253 run_id=20260612T093429-8c8fd9 service=search started_at=1489121.7283425 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:40.143622Z
+[info     ] api_call                       attempt=1 latency_ms=1079.6620829496533 model=None outcome=success queued_ms=0.00700005330145359 run_id=20260612T093429-8c8fd9 service=search started_at=1489125.313568125 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:43.827927Z
+[info     ] api_call                       attempt=1 latency_ms=1067.35833408311 model=None outcome=success queued_ms=0.006792135536670685 run_id=20260612T093429-8c8fd9 service=search started_at=1489128.886032833 tokens={'input': 0, 'output': 0} ts=2026-06-12T06:34:47.388095Z
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+[info     ] crew_finished                  chapters=12 elements_ok=True input_tokens=44723 output_tokens=36625 run_id=20260612T093429-8c8fd9 service=crew total_tokens=81348 ts=2026-06-12T06:48:08.188900Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=597.1 run_id=20260612T093429-8c8fd9 script_hash=1c2bf0d31f56 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T06:48:08.788694Z
+[info     ] chart_generated                attempt=1 from_spec=True run_id=20260612T093429-8c8fd9 service=figures ts=2026-06-12T06:48:08.788830Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=292.3 run_id=20260612T093429-8c8fd9 script_hash=6c45c6c513a4 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T06:48:09.082172Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=283.8 run_id=20260612T093429-8c8fd9 script_hash=000622da1010 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T06:48:09.367188Z
+[info     ] figures_done                   charts=3 degraded_primary=False run_id=20260612T093429-8c8fd9 service=figures ts=2026-06-12T06:48:09.367375Z
+2026-06-12 09:48:09 [info     ] latex_build_done               degraded_figure=False run_id=20260612T093429-8c8fd9 service=latex sources=22 tex=/Users/swalha/code/PDFfactory/results/20260612T093429-8c8fd9/main.tex
+[info     ] latex_pass                     exit_code=0 n=1 run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:10.110732Z
+[info     ] bib_pass                       backend=bibtex exit_code=0 run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:10.124834Z
+[info     ] latex_pass                     exit_code=0 n=2 run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:10.800941Z
+[info     ] latex_pass                     exit_code=0 n=3 run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:11.475024Z
+[info     ] latex_pass                     exit_code=0 n=4 run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:12.148389Z
+[info     ] compile_done                   passes=4 pdf=/Users/swalha/code/PDFfactory/results/20260612T093429-8c8fd9/output.pdf run_id=20260612T093429-8c8fd9 service=compiler ts=2026-06-12T06:48:12.148642Z
+[info     ] envelope_validated             all_pass=True failed=[] remediations=[] run_id=20260612T093429-8c8fd9 service=validator ts=2026-06-12T06:48:12.692938Z
+[info     ] cost_report_written            duration_s=754.5 run_id=20260612T093429-8c8fd9 service=cost total_usd=0.683544 ts=2026-06-12T06:48:12.693517Z
+[info     ] run_finished                   run_id=20260612T093429-8c8fd9 status=success total_usd=0.683544 ts=2026-06-12T06:48:12.693561Z
+run_id:  20260612T093429-8c8fd9
 topic:   AI-Driven Testing and Code Review: Quality Assurance in the Agentic Era
 status:  success
-pdf:     /Users/swalha/code/PDFfactory/results/20260612T023109-f1f3a1/output.pdf
-draft:   /Users/swalha/code/PDFfactory/results/20260612T023109-f1f3a1/draft.md
+pdf:     /Users/swalha/code/PDFfactory/results/20260612T093429-8c8fd9/output.pdf
+draft:   /Users/swalha/code/PDFfactory/results/20260612T093429-8c8fd9/draft.md
 envelope: 11/11 checks pass
-cost:    $0.7935 (74775 in / 37943 out tokens)
+cost:    $0.6835 (44723 in / 36625 out tokens)
