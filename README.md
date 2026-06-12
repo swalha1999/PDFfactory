@@ -79,6 +79,34 @@ Four complete sample documents (different topics, all 11 envelope checks
 passing) are committed under `assets/sample_run_1..4/` — each with the PDF,
 envelope/cost reports, CLI capture and page screenshots.
 
+### Gallery
+
+Pages from a single generated document (*"AI-Driven Testing and Code Review"*,
+[`assets/sample_run_4/`](assets/sample_run_4/)), each demonstrating a graded
+envelope element (C1–C11).
+
+**The pipeline running end-to-end** — research → crew → sandboxed figures →
+4-pass compile → envelope validation → cost, all through the API gatekeeper:
+
+[![CLI run](assets/sample_run_4/cli_run.jpg)](assets/sample_run_4/cli_run.jpg)
+
+**The graded envelope, page by page:**
+
+| | |
+|---|---|
+| **Cover sheet** — title, both authors, course, lecturer, date (C2) | **Table of contents** — with clickable page links (C3) |
+| [![Cover page](assets/sample_run_4/cover_page.jpg)](assets/sample_run_4/cover_page.jpg) | [![Table of contents](assets/sample_run_4/table_of_content.jpg)](assets/sample_run_4/table_of_content.jpg) |
+| **Math formula** — real display-math environment, not flat text (C9) | **Comparison table** — `booktabs`, no margin overflow (C8) |
+| [![Math formula](assets/sample_run_4/math_formula.jpg)](assets/sample_run_4/math_formula.jpg) | [![Comparison table](assets/sample_run_4/comparison_table.jpg)](assets/sample_run_4/comparison_table.jpg) |
+| **Python-generated chart** — matplotlib, rendered in the sandbox (C6+C7) | **TikZ block diagram** — vector agent-pipeline figure (C6) |
+| [![Chart page](assets/sample_run_4/chart_page.jpg)](assets/sample_run_4/chart_page.jpg) | [![Block diagram](assets/sample_run_4/block_diagram.jpg)](assets/sample_run_4/block_diagram.jpg) |
+| **Hebrew–English BiDi chapter** — correct RTL↔LTR transitions (C10) | **Bibliography** — clickable citations resolving to entries (C11) |
+| [![Hebrew BiDi chapter](assets/sample_run_4/hebrew_bidi_chapter.jpg)](assets/sample_run_4/hebrew_bidi_chapter.jpg) | [![Bibliography](assets/sample_run_4/bibliography.jpg)](assets/sample_run_4/bibliography.jpg) |
+
+*(Click any image for the full-resolution page. C1 — ~15-page length — is the
+document as a whole; the validator's full C1–C11 verdict is in each run's
+`envelope_report.md`.)*
+
 ## Configuration
 
 Secrets come **only** from the environment (`.env`, never committed):
