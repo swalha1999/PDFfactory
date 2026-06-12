@@ -87,9 +87,11 @@ def build_tasks(
             "discussed in the article and using different kinds (bar, barh, "
             "line, or pie), with title, x_label, y_label and 3-8 labels with "
             "matching numeric values. And fill "
-            "the diagram field: a block diagram of a process or architecture "
-            "from the article - caption, 4-8 short node labels in flow "
-            "order, and directed edges as [from_index, to_index] pairs."
+            "the diagram field: a simple linear process flow from the "
+            "article - caption plus 4-6 short node labels (max 4 words each) "
+            "in step order; steps are connected automatically, so do NOT "
+            "design complex edge structures (optionally one feedback edge "
+            "as a [from_index, to_index] pair)."
         ),
         expected_output="A MarkdownDraft JSON object matching the schema exactly.",
         agent=agents["latex_engineer"],

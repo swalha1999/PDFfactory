@@ -70,8 +70,9 @@ class ChartSpec(BaseModel):
 
 
 class DiagramSpec(BaseModel):
-    """Block-diagram content (TikZ) drawn from the article: short node labels
-    in flow order plus directed edges as [from_index, to_index] pairs."""
+    """Flow-diagram content (TikZ): short node labels in process order. The
+    renderer connects steps sequentially; edges are optional and only used
+    to pick one feedback arrow."""
 
     caption: str = ""
     nodes: list[str] = Field(default_factory=list)
@@ -82,7 +83,6 @@ class DiagramSpec(BaseModel):
         return (
             3 <= n <= 8
             and bool(self.caption.strip())
-            and len(self.edges) >= 2
             and all(0 <= a < n and 0 <= b < n and a != b for a, b in self.edges)
         )
 
