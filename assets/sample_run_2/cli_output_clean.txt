@@ -1,39 +1,39 @@
-[info     ] api_call                       attempt=1 latency_ms=794.2640001419932 model=None outcome=success queued_ms=0.0028330832719802856 run_id=20260612T014617-2f076b service=search started_at=1481255.975065125 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:18.763221Z
-[info     ] api_call                       attempt=1 latency_ms=914.0473338775337 model=None outcome=success queued_ms=0.01816684380173683 run_id=20260612T014617-2f076b service=search started_at=1481256.769981333 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:19.677952Z
-[info     ] api_call                       attempt=1 latency_ms=1179.3511661235243 model=None outcome=success queued_ms=0.012249918654561043 run_id=20260612T014617-2f076b service=search started_at=1481257.684537416 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:20.857798Z
-[info     ] crew_kickoff                   run_id=20260612T014617-2f076b service=crew topic='Agentic Coding: How Autonomous AI Agents Are Reshaping Software Development' ts=2026-06-11T22:46:20.870025Z
-[info     ] api_call                       attempt=1 latency_ms=940.9304589498788 model=None outcome=success queued_ms=0.0061248429119586945 run_id=20260612T014617-2f076b service=search started_at=1481262.297256375 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:25.232040Z
-[info     ] api_call                       attempt=1 latency_ms=929.0775409899652 model=None outcome=success queued_ms=0.010999850928783417 run_id=20260612T014617-2f076b service=search started_at=1481265.761952291 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:28.684839Z
-[info     ] api_call                       attempt=1 latency_ms=1113.6917502153665 model=None outcome=success queued_ms=0.009999843314290047 run_id=20260612T014617-2f076b service=search started_at=1481269.061909583 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:32.169439Z
-[info     ] api_call                       attempt=1 latency_ms=921.5850001201034 model=None outcome=success queued_ms=0.009958166629076004 run_id=20260612T014617-2f076b service=search started_at=1481273.147172291 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:36.062602Z
-[info     ] api_call                       attempt=1 latency_ms=872.6394160185009 model=None outcome=success queued_ms=0.00870879739522934 run_id=20260612T014617-2f076b service=search started_at=1481276.880164208 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:39.746619Z
-[info     ] api_call                       attempt=1 latency_ms=812.6146669965237 model=None outcome=success queued_ms=0.00933394767343998 run_id=20260612T014617-2f076b service=search started_at=1481280.164070666 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:42.970476Z
-[info     ] api_call                       attempt=1 latency_ms=739.5431660115719 model=None outcome=success queued_ms=0.0062498729676008224 run_id=20260612T014617-2f076b service=search started_at=1481283.22209225 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:46:45.955394Z
-[info     ] api_call                       attempt=1 latency_ms=1160.880166105926 model=None outcome=success queued_ms=29843.63091713749 run_id=20260612T014617-2f076b service=search started_at=1481286.139149916 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:47:19.139587Z
-[info     ] api_call                       attempt=1 latency_ms=1148.4453750308603 model=None outcome=success queued_ms=0.020834151655435562 run_id=20260612T014617-2f076b service=search started_at=1481320.638002541 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:47:23.782797Z
-[info     ] api_call                       attempt=1 latency_ms=877.4357500951737 model=None outcome=success queued_ms=0.012916047126054764 run_id=20260612T014617-2f076b service=search started_at=1481325.10464775 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:47:27.978639Z
-[info     ] api_call                       attempt=1 latency_ms=918.6687499750406 model=None outcome=success queued_ms=0.009124865755438805 run_id=20260612T014617-2f076b service=search started_at=1481328.651827958 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:47:31.567230Z
-[info     ] api_call                       attempt=1 latency_ms=1095.0029999949038 model=None outcome=success queued_ms=0.011708121746778488 run_id=20260612T014617-2f076b service=search started_at=1481331.783958083 tokens={'input': 0, 'output': 0} ts=2026-06-11T22:47:34.875825Z
-[info     ] crew_finished                  chapters=11 elements_ok=True input_tokens=98468 output_tokens=36057 run_id=20260612T014617-2f076b service=crew total_tokens=134525 ts=2026-06-11T23:00:35.361294Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=326.4 run_id=20260612T014617-2f076b script_hash=afdf313fd266 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:00:35.690960Z
-[info     ] chart_generated                attempt=1 from_spec=True run_id=20260612T014617-2f076b service=figures ts=2026-06-11T23:00:35.691118Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=290.5 run_id=20260612T014617-2f076b script_hash=5c61a63a82be service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:00:35.982677Z
-[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=291.2 run_id=20260612T014617-2f076b script_hash=873711bdfcf1 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-11T23:00:36.275059Z
-[info     ] figures_done                   charts=3 degraded_primary=False run_id=20260612T014617-2f076b service=figures ts=2026-06-11T23:00:36.275277Z
-2026-06-12 02:00:36 [info     ] latex_build_done               degraded_figure=False run_id=20260612T014617-2f076b service=latex sources=28 tex=/Users/swalha/code/PDFfactory/results/20260612T014617-2f076b/main.tex
-[info     ] latex_pass                     exit_code=0 n=1 run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:36.960703Z
-[info     ] bib_pass                       backend=bibtex exit_code=0 run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:36.972481Z
-[info     ] latex_pass                     exit_code=0 n=2 run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:37.660468Z
-[info     ] latex_pass                     exit_code=0 n=3 run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:38.327982Z
-[info     ] latex_pass                     exit_code=0 n=4 run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:38.998888Z
-[info     ] compile_done                   passes=4 pdf=/Users/swalha/code/PDFfactory/results/20260612T014617-2f076b/output.pdf run_id=20260612T014617-2f076b service=compiler ts=2026-06-11T23:00:38.999137Z
-[info     ] envelope_validated             all_pass=True failed=[] remediations=[] run_id=20260612T014617-2f076b service=validator ts=2026-06-11T23:00:39.519990Z
-[info     ] cost_report_written            duration_s=836.6 run_id=20260612T014617-2f076b service=cost total_usd=0.836259 ts=2026-06-11T23:00:39.520620Z
-[info     ] run_finished                   run_id=20260612T014617-2f076b status=success total_usd=0.836259 ts=2026-06-11T23:00:39.520669Z
-run_id:  20260612T014617-2f076b
+[info     ] api_call                       attempt=1 latency_ms=1067.775750067085 model=None outcome=success queued_ms=0.0031248200684785843 run_id=20260612T083851-15c987 service=search started_at=1486572.027353041 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:38:52.214570Z
+[info     ] api_call                       attempt=1 latency_ms=1070.2116671018302 model=None outcome=success queued_ms=0.014167046174407005 run_id=20260612T083851-15c987 service=search started_at=1486573.095747375 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:38:53.285443Z
+[info     ] api_call                       attempt=1 latency_ms=890.7662080600858 model=None outcome=success queued_ms=0.01100008375942707 run_id=20260612T083851-15c987 service=search started_at=1486574.166542125 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:38:54.176734Z
+[info     ] crew_kickoff                   run_id=20260612T083851-15c987 service=crew topic='Agentic Coding: How Autonomous AI Agents Are Reshaping Software Development' ts=2026-06-12T05:38:54.190120Z
+[info     ] api_call                       attempt=1 latency_ms=983.671166934073 model=None outcome=success queued_ms=0.006292015314102173 run_id=20260612T083851-15c987 service=search started_at=1486578.509830083 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:38:58.612853Z
+[info     ] api_call                       attempt=1 latency_ms=861.6110000293702 model=None outcome=success queued_ms=0.008750008419156075 run_id=20260612T083851-15c987 service=search started_at=1486581.789537583 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:01.770448Z
+[info     ] api_call                       attempt=1 latency_ms=726.7865410540253 model=None outcome=success queued_ms=0.015208031982183456 run_id=20260612T083851-15c987 service=search started_at=1486584.930410541 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:04.776647Z
+[info     ] api_call                       attempt=1 latency_ms=941.8679170776159 model=None outcome=success queued_ms=0.014666002243757248 run_id=20260612T083851-15c987 service=search started_at=1486588.188402916 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:08.249654Z
+[info     ] api_call                       attempt=1 latency_ms=1120.7429158966988 model=None outcome=success queued_ms=0.014290912076830864 run_id=20260612T083851-15c987 service=search started_at=1486591.94818675 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:12.188290Z
+[info     ] api_call                       attempt=1 latency_ms=934.2745419126004 model=None outcome=success queued_ms=0.012499978765845299 run_id=20260612T083851-15c987 service=search started_at=1486595.636786708 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:15.690386Z
+[info     ] api_call                       attempt=1 latency_ms=903.5496250726283 model=None outcome=success queued_ms=0.014208955690264702 run_id=20260612T083851-15c987 service=search started_at=1486599.887078291 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:39:19.909916Z
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+[info     ] crew_finished                  chapters=11 elements_ok=True input_tokens=58829 output_tokens=34291 run_id=20260612T083851-15c987 service=crew total_tokens=93120 ts=2026-06-12T05:51:48.362140Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=345.2 run_id=20260612T083851-15c987 script_hash=2957de90fcba service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:51:48.709960Z
+[info     ] chart_generated                attempt=1 from_spec=True run_id=20260612T083851-15c987 service=figures ts=2026-06-12T05:51:48.710115Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=290.5 run_id=20260612T083851-15c987 script_hash=cd03372c4af5 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:51:49.001994Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=289.3 run_id=20260612T083851-15c987 script_hash=e63151164a56 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:51:49.292636Z
+[info     ] figures_done                   charts=3 degraded_primary=False run_id=20260612T083851-15c987 service=figures ts=2026-06-12T05:51:49.292840Z
+2026-06-12 08:51:49 [info     ] latex_build_done               degraded_figure=False run_id=20260612T083851-15c987 service=latex sources=12 tex=/Users/swalha/code/PDFfactory/results/20260612T083851-15c987/main.tex
+[info     ] latex_pass                     exit_code=0 n=1 run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:49.999776Z
+[info     ] bib_pass                       backend=bibtex exit_code=0 run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:50.011494Z
+[info     ] latex_pass                     exit_code=0 n=2 run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:50.701766Z
+[info     ] latex_pass                     exit_code=0 n=3 run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:51.390343Z
+[info     ] latex_pass                     exit_code=0 n=4 run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:52.079091Z
+[info     ] compile_done                   passes=4 pdf=/Users/swalha/code/PDFfactory/results/20260612T083851-15c987/output.pdf run_id=20260612T083851-15c987 service=compiler ts=2026-06-12T05:51:52.079334Z
+[info     ] envelope_validated             all_pass=True failed=[] remediations=[] run_id=20260612T083851-15c987 service=validator ts=2026-06-12T05:51:52.614155Z
+[info     ] cost_report_written            duration_s=755.0 run_id=20260612T083851-15c987 service=cost total_usd=0.690852 ts=2026-06-12T05:51:52.614736Z
+[info     ] run_finished                   run_id=20260612T083851-15c987 status=success total_usd=0.690852 ts=2026-06-12T05:51:52.614779Z
+run_id:  20260612T083851-15c987
 topic:   Agentic Coding: How Autonomous AI Agents Are Reshaping Software Development
 status:  success
-pdf:     /Users/swalha/code/PDFfactory/results/20260612T014617-2f076b/output.pdf
-draft:   /Users/swalha/code/PDFfactory/results/20260612T014617-2f076b/draft.md
+pdf:     /Users/swalha/code/PDFfactory/results/20260612T083851-15c987/output.pdf
+draft:   /Users/swalha/code/PDFfactory/results/20260612T083851-15c987/draft.md
 envelope: 11/11 checks pass
-cost:    $0.8363 (98468 in / 36057 out tokens)
+cost:    $0.6909 (58829 in / 34291 out tokens)
