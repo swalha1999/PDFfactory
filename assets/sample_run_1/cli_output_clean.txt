@@ -1,0 +1,39 @@
+[info     ] api_call                       attempt=1 latency_ms=902.7360829059035 model=None outcome=success queued_ms=0.002624932676553726 run_id=20260612T082251-c6c649 service=search started_at=1485612.297568041 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:22:52.325770Z
+[info     ] api_call                       attempt=1 latency_ms=793.4705410152674 model=None outcome=success queued_ms=0.015625031664967537 run_id=20260612T082251-c6c649 service=search started_at=1485613.200891 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:22:53.119881Z
+[info     ] api_call                       attempt=1 latency_ms=789.9135830812156 model=None outcome=success queued_ms=0.011499971151351929 run_id=20260612T082251-c6c649 service=search started_at=1485613.995013583 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:22:53.910387Z
+[info     ] crew_kickoff                   run_id=20260612T082251-c6c649 service=crew topic='Multi-Agent Systems in Modern Software Engineering' ts=2026-06-12T05:22:53.922530Z
+[info     ] api_call                       attempt=1 latency_ms=811.9975000154227 model=None outcome=success queued_ms=0.008667120710015297 run_id=20260612T082251-c6c649 service=search started_at=1485617.979972583 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:22:57.917387Z
+[info     ] api_call                       attempt=1 latency_ms=821.2847500108182 model=None outcome=success queued_ms=0.011416152119636536 run_id=20260612T082251-c6c649 service=search started_at=1485620.961993625 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:00.908725Z
+[info     ] api_call                       attempt=1 latency_ms=1183.3037079777569 model=None outcome=success queued_ms=0.011082971468567848 run_id=20260612T082251-c6c649 service=search started_at=1485624.239860708 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:04.548592Z
+[info     ] api_call                       attempt=1 latency_ms=859.2793340794742 model=None outcome=success queued_ms=0.010667135939002037 run_id=20260612T082251-c6c649 service=search started_at=1485627.790474708 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:07.775130Z
+[info     ] api_call                       attempt=1 latency_ms=927.9999579302967 model=None outcome=success queued_ms=0.017458107322454453 run_id=20260612T082251-c6c649 service=search started_at=1485631.481679791 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:11.535102Z
+[info     ] api_call                       attempt=1 latency_ms=846.8342500273138 model=None outcome=success queued_ms=0.009041978046298027 run_id=20260612T082251-c6c649 service=search started_at=1485634.621514208 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:14.593718Z
+[info     ] api_call                       attempt=1 latency_ms=803.2639590092003 model=None outcome=success queued_ms=0.011041061952710152 run_id=20260612T082251-c6c649 service=search started_at=1485638.139256416 tokens={'input': 0, 'output': 0} ts=2026-06-12T05:23:18.067871Z
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+Failed to export span batch due to timeout, max retries or shutdown.
+[info     ] crew_finished                  chapters=10 elements_ok=True input_tokens=56753 output_tokens=36798 run_id=20260612T082251-c6c649 service=crew total_tokens=93551 ts=2026-06-12T05:36:55.762707Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=496.4 run_id=20260612T082251-c6c649 script_hash=4fc3a7a9ffb3 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:36:56.261998Z
+[info     ] chart_generated                attempt=1 from_spec=True run_id=20260612T082251-c6c649 service=figures ts=2026-06-12T05:36:56.262145Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=283.9 run_id=20260612T082251-c6c649 script_hash=513a611152d6 service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:36:56.547144Z
+[info     ] sandbox_run                    backend=subprocess_isolated duration_ms=300.2 run_id=20260612T082251-c6c649 script_hash=b5aa31f53bfd service=sandbox status=success stderr_tail= stdout_tail= ts=2026-06-12T05:36:56.848638Z
+[info     ] figures_done                   charts=3 degraded_primary=False run_id=20260612T082251-c6c649 service=figures ts=2026-06-12T05:36:56.848819Z
+2026-06-12 08:36:56 [info     ] latex_build_done               degraded_figure=False run_id=20260612T082251-c6c649 service=latex sources=14 tex=/Users/swalha/code/PDFfactory/results/20260612T082251-c6c649/main.tex
+[info     ] latex_pass                     exit_code=0 n=1 run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:57.618456Z
+[info     ] bib_pass                       backend=bibtex exit_code=0 run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:57.630968Z
+[info     ] latex_pass                     exit_code=0 n=2 run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:58.345193Z
+[info     ] latex_pass                     exit_code=0 n=3 run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:59.050718Z
+[info     ] latex_pass                     exit_code=0 n=4 run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:59.754949Z
+[info     ] compile_done                   passes=4 pdf=/Users/swalha/code/PDFfactory/results/20260612T082251-c6c649/output.pdf run_id=20260612T082251-c6c649 service=compiler ts=2026-06-12T05:36:59.755213Z
+[info     ] envelope_validated             all_pass=True failed=[] remediations=[] run_id=20260612T082251-c6c649 service=validator ts=2026-06-12T05:37:00.390794Z
+[info     ] cost_report_written            duration_s=849.0 run_id=20260612T082251-c6c649 service=cost total_usd=0.722229 ts=2026-06-12T05:37:00.391394Z
+[info     ] run_finished                   run_id=20260612T082251-c6c649 status=success total_usd=0.722229 ts=2026-06-12T05:37:00.391439Z
+run_id:  20260612T082251-c6c649
+topic:   Multi-Agent Systems in Modern Software Engineering
+status:  success
+pdf:     /Users/swalha/code/PDFfactory/results/20260612T082251-c6c649/output.pdf
+draft:   /Users/swalha/code/PDFfactory/results/20260612T082251-c6c649/draft.md
+envelope: 11/11 checks pass
+cost:    $0.7222 (56753 in / 36798 out tokens)
