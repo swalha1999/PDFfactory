@@ -1,5 +1,10 @@
 # AgentScribe — CrewAI → LaTeX Document Forge
 
+[![CI](https://github.com/swalha1999/PDFfactory/actions/workflows/ci.yml/badge.svg)](https://github.com/swalha1999/PDFfactory/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.12+-blue)
+![Coverage](https://img.shields.io/badge/coverage-~97%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 Give it a topic; get back a polished, compilable **PDF article** — cover page,
 table of contents, chapters, a Python-generated chart, a TikZ diagram, a real
 math formula, a Hebrew–English BiDi chapter, and a clickable bibliography —
@@ -77,7 +82,15 @@ The CLI is a logic-free wrapper; everything routes through the SDK
 
 Four complete sample documents (different topics, all 11 envelope checks
 passing) are committed under `assets/sample_run_1..4/` — each with the PDF,
-envelope/cost reports, CLI capture and page screenshots.
+envelope/cost reports, CLI capture and page screenshots. All four were
+generated with live Anthropic + Serper APIs using **Sonnet for every agent**.
+
+| Run | Topic | Pages | Cost | Shots |
+|-----|-------|------:|-----:|-------|
+| 1 | Multi-Agent Systems in Modern Software Engineering | 19 | $0.72 | [screenshots](assets/sample_run_1/screenshots/) |
+| 2 | Agentic Coding: How Autonomous AI Agents Are Reshaping Software Development | 17 | $0.69 | [screenshots](assets/sample_run_2/screenshots/) |
+| 3 | From Coder to Orchestrator: The Changing Role of the Software Engineer | 17 | $0.63 | [screenshots](assets/sample_run_3/screenshots/) |
+| 4 | AI-Driven Testing and Code Review: Quality Assurance in the Agentic Era | 18 | $0.68 | [screenshots](assets/sample_run_4/screenshots/) |
 
 ### Gallery
 
@@ -140,6 +153,43 @@ Operational policy lives in versioned `config/*.json` (all start at v1.00, check
 - **Observability** — structured JSONL log per run with secret redaction, plus a
   cost report (written even for failed runs).
 
+### OOP class diagram
+
+The SDK facade composes the domain services; every external call goes through
+the gatekeeper. (Full C4 diagrams + ADRs in [`docs/PLAN.md`](docs/PLAN.md).)
+
+```mermaid
+classDiagram
+    class AgentScribeSDK {
+        +generate_document(topic) RunResult
+        +generate_markdown(topic) MarkdownDraft
+        +build_latex(draft) Path
+        +compile_pdf(run_dir) Path
+        +validate(pdf) EnvelopeReport
+    }
+    class CrewPipeline {
+        +run(topic) MarkdownDraft
+    }
+    class LatexEngine {
+        +build(draft) BuildArtifacts
+    }
+    class ApiGatekeeper {
+        +execute(call) Any
+        +get_queue_status() QueueStatus
+    }
+    class Config
+    class CostReporter
+    class EnvelopeReport
+
+    AgentScribeSDK --> CrewPipeline
+    AgentScribeSDK --> LatexEngine
+    AgentScribeSDK --> Config
+    AgentScribeSDK --> CostReporter
+    AgentScribeSDK ..> EnvelopeReport : produces
+    CrewPipeline --> ApiGatekeeper : all LLM/search calls
+    LatexEngine ..> CostReporter : sandboxed figures
+```
+
 ## Cost (tokens & dollars)
 
 Estimated for one ~15-page run with the default models
@@ -152,8 +202,15 @@ Estimated for one ~15-page run with the default models
 | LaTeX prep | sonnet 4.6 ($3 / $15 per MTok) | ~20,000 | ~12,000 | ~$0.24 |
 | **Total per run** | | **~65,000** | **~32,000** | **≈ $0.39** |
 
-At scale (linear): ~$3.90 / 10 runs, ~$39 / 100 runs. Actuals land in each
-run's `cost_report.md`, including a per-model breakdown and projection.
+At scale (linear): ~$3.90 / 10 runs, ~$39 / 100 runs.
+
+> **Default vs. the committed samples.** The estimate above is the *default,
+> cost-optimized* config (cheap haiku workers + sonnet engineer ≈ **$0.39**).
+> The four committed sample runs instead used **Sonnet for every agent** for
+> maximum quality, so their real cost is higher — **$0.63–$0.72** (avg ≈
+> $0.68), as shown in the sample-runs table and each run's `cost_report.md`.
+> Switch worker model via `AGENTSCRIBE_WORKER_MODEL` to trade cost for quality.
+
 **Optimization notes:** volume prose goes to the cheap worker model; only the
 markup-critical stage pays for the stronger model; the gatekeeper's rate
 limits cap burst spend; `--markdown-only` skips LaTeX during prompt iteration.
@@ -185,6 +242,21 @@ is missing.
   `config/rate_limits.json` or rerun later.
 - **Validator fails C1 (page count)** → raise `--target-pages` or lower the
   tolerance in `setup.json`.
+
+## Contributing
+
+Standards enforced on every change (all gates above must be green):
+
+- **`uv` only** — no `pip`/`venv`; add deps with `uv add`, commit `uv.lock`.
+- **SDK-first** — business logic lives behind `AgentScribeSDK`; CLI/UI stays a
+  thin wrapper. External calls go through `ApiGatekeeper`, never directly.
+- **Files ≤ 150 lines**, config-driven (no hard-coded values; secrets via env).
+- **TDD** — add/extend tests with the code; keep coverage ≥ 85%. Tests must not
+  call live APIs (mock the crew).
+- **Style** — `ruff` (lint + format) and `mypy --strict` must pass clean.
+
+Workflow: branch off `main` → make the change with tests → run the quality
+gates locally → open a PR (CI must pass) → review → squash/merge.
 
 ## License & credits
 
