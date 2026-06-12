@@ -40,7 +40,7 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 - [x] **Systematic experiments** — `notebooks/results_analysis.ipynb` (executed): compile-pass sensitivity (real LaTeX experiment), cost vs pages × model pairing, figure determinism.
 - [x] **Sensitivity analysis with charts** — same notebook, three executed charts.
 - [x] **Token cost analysis + optimization** — README cost table + per-run `cost_report.md` with at-scale projection; optimization notes documented.
-- [x] **Screenshots of CLI states / sample PDF pages** — [`assets/sample_run/`](../assets/sample_run/): cover, TOC, chart page, Hebrew BiDi chapter, references (rendered from the live run's `output.pdf`) + full CLI capture.
+- [x] **Screenshots of CLI states / sample PDF pages** — page screenshots and CLI captures in each of [`assets/sample_run_1..4/`](../assets/sample_run_1/) (see the sample-runs table below).
 
 ## 17.6 Extensibility and Standards
 
