@@ -73,6 +73,12 @@ The CLI is a logic-free wrapper; everything routes through the SDK
 (`generate_document`, `generate_markdown`, `build_latex`, `compile_pdf`,
 `validate`).
 
+## Sample outputs
+
+Four complete sample documents (different topics, all 11 envelope checks
+passing) are committed under `assets/sample_run_1..4/` — each with the PDF,
+envelope/cost reports, CLI capture and page screenshots.
+
 ## Configuration
 
 Secrets come **only** from the environment (`.env`, never committed):

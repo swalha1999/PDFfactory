@@ -51,15 +51,19 @@ Status as of 2026-06-11. Each item names the evidence in this repository.
 - [x] **ISO/IEC 25010 mapping** — PRD §4.2.
 - [x] **Clean git history, license, attribution** — small per-milestone commits closing issues; MIT license + credits in README.
 
-## Live sample run (issue #39) — done
+## Live sample runs — four committed topics
 
-Run `20260611T221020-ae78f8`, topic *"Multi-Agent Systems in Modern
-Software Engineering"*: **status success, 14 pages, all 11 envelope checks
-pass**, cost **$0.2455** (25,074 in / 23,882 out tokens; gatekept Serper
-searches grounding real source URLs). Compiled with XeLaTeX - Hebrew BiDi
-verified correct visually and by the C10 direction check; margins verified
-geometrically by the C8 check. Artifacts committed under
-[`assets/sample_run/`](../assets/sample_run/): `output.pdf`, envelope and
-cost reports, draft, CLI capture, and page screenshots.
+All four samples generated end-to-end with live Anthropic + Serper APIs,
+**Sonnet for every agent**, each passing **all 11 envelope checks**, each
+with 2-3 article-driven charts (bar/barh/line/pie) and a TikZ flow diagram:
 
-Every checklist item is satisfied.
+| Sample | Topic | Pages | Cost |
+|--------|-------|------:|-----:|
+| [`assets/sample_run_1/`](../assets/sample_run_1/) | Multi-Agent Systems in Modern Software Engineering | 19 | $0.72 |
+| [`assets/sample_run_2/`](../assets/sample_run_2/) | Agentic Coding: How Autonomous AI Agents Are Reshaping Software Development | 17 | $0.69 |
+| [`assets/sample_run_3/`](../assets/sample_run_3/) | From Coder to Orchestrator: The Changing Role of the Software Engineer | 18 | $0.63 |
+| [`assets/sample_run_4/`](../assets/sample_run_4/) | AI-Driven Testing and Code Review: Quality Assurance in the Agentic Era | 18 | $0.68 |
+
+Each directory holds `output.pdf`, envelope + cost reports, the draft,
+the CLI capture, and page screenshots (cover, charts, Hebrew BiDi
+chapter, diagram). Every checklist item is satisfied.
